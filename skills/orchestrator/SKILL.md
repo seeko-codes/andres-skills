@@ -36,7 +36,7 @@ Split a feature the way a basis spans a space. A **batch** is a set of subagents
 - **Spanning** — the union of their slices delivers the entire feature; nothing falls between agents.
 - **Independent** — disjoint *write-sets*: no two slices in a batch write the same files, so merges never collide. Reading shared code is free; only writes must be disjoint.
 
-Each slice is **vertical** — an end-to-end unit of the feature, not a horizontal layer.
+Each slice is **vertical** — an end-to-end unit of the feature, not a horizontal layer. Verticality is scale-relative and recursive: when a slice splits, its pieces are vertical with respect to *that slice's* deliverable, not the original feature — layers never become the right split at any depth.
 
 Rules:
 
