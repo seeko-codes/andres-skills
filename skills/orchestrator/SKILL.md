@@ -29,13 +29,31 @@ The agent the user talks to is a foreman, not a builder. Its job is scoping, del
 - Integrate: merge worktrees, trigger final verification (which may itself be delegated).
 - Report outcomes to the user.
 
+## Decomposition: batches as a basis
+
+Split a feature the way a basis spans a space. A **batch** is a set of subagents that together are:
+
+- **Spanning** — the union of their slices delivers the entire feature; nothing falls between agents.
+- **Independent** — disjoint *write-sets*: no two slices in a batch write the same files, so merges never collide. Reading shared code is free; only writes must be disjoint.
+
+Each slice is **vertical** — an end-to-end unit of the feature, not a horizontal layer.
+
+Rules:
+
+1. **No dependencies between slices** → one batch, all slices dispatched in parallel worktrees.
+2. **Dependencies** → topologically sort into batches: each batch is internally parallel; the next dispatches only after the previous one has merged and verified.
+3. **Orthogonalize before you parallelize.** Shared seams (types, schemas, contracts, route registries) are where slices would collide. Extract them into a small **contract batch** dispatched first; later slices build against the frozen contract.
+4. **Context budget: ~100k tokens per agent** — its repo reading + instructions + work must fit in the smart zone. A slice too big to fit splits along another vertical seam; if it can't split without breaking independence, it becomes its own sequential batch.
+5. **Batch boundary ritual:** merge all worktrees, verify the *composed* result (spanning of tasks doesn't guarantee the composition works), then plan the next batch against the new base.
+6. No-redundancy binds *construction* only — verification fleets are deliberately redundant and stay that way.
+
 ## Delegation loop
 
-1. **Scope** — break the request into roles (explore, design, implement, verify).
+1. **Scope** — break the request into vertical slices; sort into batches per the basis rules above.
 2. **Fleet plan** — per `model-strategy`: tier + effort per role, one line each.
-3. **Dispatch** — worktree isolation for anything that writes; parallel where independent.
+3. **Dispatch** — worktree isolation for anything that writes; the current batch runs fully parallel.
 4. **Review** — read conclusions, spot-check claims; failed verification goes back to a subagent, not into the main thread's own hands.
-5. **Land** — merge, confirm the main checkout is clean, report.
+5. **Land** — merge the batch, verify the composition, confirm the main checkout is clean; next batch or report.
 
 ## Exceptions
 

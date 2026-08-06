@@ -26,7 +26,7 @@ That's it — `~/.claude/skills/` makes them available in every project. For a s
 
 ## How I actually use them
 
-**orchestrator** — the always-on one. My main session stays a clean thread of decisions while subagents do the building in git worktrees. The payoff is twofold: the main checkout never gets dirty, and the main context stays small enough to hold a whole project conversation without drowning in file dumps.
+**orchestrator** — the always-on one. My main session stays a clean thread of decisions while subagents do the building in git worktrees. The payoff is twofold: the main checkout never gets dirty, and the main context stays small enough to hold a whole project conversation without drowning in file dumps. Work is decomposed into *batches* — spanning, independent sets of vertical slices, like basis vectors of the feature — and the full theory has [a repo of its own](https://github.com/seeko-codes/orchestrator-skill).
 
 **model-strategy** — loaded before every fleet I dispatch: a three-book parallel-read pipeline, a screenshot-review fleet, corpus inventory sweeps over hundreds of lesson files. The rule that pays rent: the ladder is haiku < sonnet < opus < fable, mismatches are forbidden in both directions, and every effort upgrade past medium has to be argued for — benchmark cost curves show max effort buys a few points for a multiple of the price.
 
