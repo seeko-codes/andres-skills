@@ -85,4 +85,10 @@ Only offer to create an ADR when all three are true:
 
 If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
 
+### Optional: put the surviving plan on a page
+
+Only if `lavish-axi` is installed. When the interview is over, the plan that survived it can be rendered as an HTML artifact (`lavish-axi playbook plan`), opened with `lavish-axi <file>`, and annotated by the user; `lavish-axi poll <file>` returns their marks. Use it at the end, as a final read-through of what was decided — never to replace the interview.
+
+The one-question-at-a-time rule still binds. Do not batch questions into an artifact. The single exception is one question with many discrete options — a term to canonicalise, a scope to pick — where `lavish-axi playbook input` renders that one question as choices; ask it, wait for the answer, then continue.
+
 </supporting-info>

@@ -54,6 +54,7 @@ Rules:
 
 1. **Scope** — break the request into vertical slices; sort into batches per the basis rules above.
 2. **Fleet plan** — per `model-strategy`: tier + effort per role, one line each.
+   - Optional, only if `lavish-axi` is installed: for a batch big enough to argue about, render the plan as an HTML artifact (`lavish-axi playbook plan`), open it with `lavish-axi <file>`, and `lavish-axi poll <file>` for the user's annotations before dispatching. A collision between slices is easier to spot on a diagram than in a transcript. Skip it for small or obvious batches — chat is faster.
 3. **Dispatch** — worktree isolation for anything that writes; the current batch runs fully parallel.
 4. **Review** — read conclusions, spot-check claims; failed verification goes back to a subagent, not into the main thread's own hands.
 5. **Land** — merge the batch, verify the composition, confirm the main checkout is clean; next batch or report.

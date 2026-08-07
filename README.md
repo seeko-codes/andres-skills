@@ -14,6 +14,8 @@ cp -R andres-skills/skills/* ~/.claude/skills/
 
 That's it — `~/.claude/skills/` makes them available in every project. For a single project, copy them into that repo's `.claude/skills/` instead. Restart your Claude Code session and the skills register automatically; invoke one explicitly with `/orchestrator`, `/tdd`, etc., or just work normally and let them trigger on their own.
 
+That covers the skills. One companion tool — [Lavish](#lavish-the-companion-tool) — is not a skill and installs separately.
+
 ## The skills
 
 | Skill | One-liner | Fires when… |
@@ -47,6 +49,56 @@ diagnose              — when something breaks anyway
 ```
 
 A typical feature: grill the plan first, then the orchestrator splits it into roles, model-strategy prices each role, implementation lands test-first in a worktree, and the main thread reviews and merges.
+
+## Lavish: the companion tool
+
+The one non-skill piece of my setup, and the only thing here that isn't plain Markdown. [Lavish](https://www.npmjs.com/package/lavish-axi) is a third-party CLI — not part of this repo, not maintained by me — that turns an HTML artifact into a review surface I can annotate in the browser and send back to the agent.
+
+### Install
+
+```bash
+npm install -g lavish-axi
+```
+
+Then wire it into Claude Code as a `SessionStart` hook in `~/.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "lavish-axi", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}
+```
+
+The `lavish-axi` binary is a hard requirement. Without it there is no hook output, no review server, and nothing below happens — this isn't a nice-to-have layer over some fallback.
+
+### Why it's a tool, not a skill
+
+A skill is a folder in `~/.claude/skills/` that gets loaded when its description matches what you're doing. Lavish doesn't need that machinery: run the binary bare and it prints its own description, visual guidance, playbook index and help text, and the `SessionStart` hook pipes exactly that into every session. It self-advertises once per session instead of waiting to be matched. So cloning this repo gets you the five *skills*; Lavish you install yourself. (The npm package does ship a `SKILL.md` of its own — with the hook wired up you don't need it, and I don't use it.)
+
+### The loop
+
+1. The agent writes an HTML artifact — by default under `.lavish/` in the working directory.
+2. `lavish-axi <html-file>` serves it locally and opens it in the browser.
+3. I annotate elements and selected text, and queue prompts against what I annotated.
+4. `lavish-axi poll <html-file>` long-polls and returns that feedback to the agent. It stays silent until I send or end the session, so it just sits there running.
+
+Guidance comes from playbooks fetched with `lavish-axi playbook <id>` — `diagram`, `table`, `comparison`, `plan`, `code`, `input`, `slides` — and `lavish-axi design` returns the design router plus CDN snippets. Other verbs worth knowing: `end` (agent-side close), `export` (standalone HTML with local assets inlined), `stop` (shut the background server down).
+
+### How I actually use it
+
+The `plan` playbook, mostly, and always at the same moment: before a fleet goes out. Instead of a wall of chat text, the orchestrator renders the fleet plan as a page — goal, current state, proposed approach, the batch decomposition as a Mermaid diagram, risks and open questions at the end. Then I click the slice I don't believe and annotate it — "this writes the same files as slice 2, they're not independent" — queue it, and `poll` hands that straight back. Catching a collision by pointing at a box beats catching it by re-reading a transcript.
+
+The `input` playbook does the other half: radio groups and a submit button for decisions the agent needs from me. A scope-triage pass that would have been a dozen one-at-a-time chat questions becomes a page of choices and one Send.
+
+**Warning:** `lavish-axi share <html-file>` publishes the artifact to `ht-ml.app`, a third-party host, and shares are **public by default** — anyone with the link can open it. `--password` publishes a private password-protected page instead. Think before sharing an artifact that quotes your codebase.
 
 ## Writing your own
 
