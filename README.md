@@ -2,7 +2,7 @@
 
 A small, battle-tested set of skills for [Claude Code](https://claude.com/claude-code) — pulled straight from my daily setup, with the machine-specific stuff stripped out. Each one is mostly a plain-Markdown instruction file (plus the occasional helper script) that the agent loads when the moment calls for it.
 
-The headliner is **orchestrator**: it turns your main Claude session into a foreman that never writes feature code itself — it scopes work, delegates to the right-sized subagents in isolated git worktrees, reviews what comes back, and integrates. The other four are the skills I reach for most, and they compose with it.
+The headliner is **orchestrator**: it turns your main Claude session into a foreman that never writes feature code itself — it scopes work, delegates to the right-sized subagents in isolated git worktrees, reviews what comes back, and integrates. The other four are the skills I reach for most, and they compose with it. A sixth, **wait-what**, isn't mine — it's [Matt Pocock's](https://github.com/mattpocock/skills), republished here verbatim under MIT.
 
 ## Install
 
@@ -12,7 +12,7 @@ mkdir -p ~/.claude/skills
 cp -R andres-skills/skills/* ~/.claude/skills/
 ```
 
-That's it — `~/.claude/skills/` makes them available in every project. For a single project, copy them into that repo's `.claude/skills/` instead. Restart your Claude Code session and the skills register automatically; invoke one explicitly with `/orchestrator`, `/tdd`, etc., or just work normally and let them trigger on their own.
+That's it — `~/.claude/skills/` makes them available in every project. For a single project, copy them into that repo's `.claude/skills/` instead. Restart your Claude Code session and the skills register automatically; invoke one explicitly with `/orchestrator`, `/tdd`, etc., or just work normally and let them trigger on their own. The exception is `wait-what`, which only ever runs when you type it.
 
 That covers the skills. One companion tool — [Lavish](#lavish-the-companion-tool) — is not a skill and installs separately.
 
@@ -25,6 +25,9 @@ That covers the skills. One companion tool — [Lavish](#lavish-the-companion-to
 | [tdd](skills/tdd/SKILL.md) | Red-green-refactor with behavior-first vertical slices | building features or fixing bugs test-first |
 | [grill-with-docs](skills/grill-with-docs/SKILL.md) | Relentless one-question-at-a-time interview that stress-tests a plan against your project's own docs, updating the glossary and ADRs as decisions land | you want a plan challenged, not implemented |
 | [diagnose](skills/diagnose/SKILL.md) | Disciplined debugging loop: reproduce → minimise → hypothesise → instrument → fix → regression-test | something is broken and guessing hasn't worked |
+| [wait-what](skills/wait-what/SKILL.md) **· third-party** | Tells the agent its last message didn't land, and to re-pitch it with context, in Simplified Technical English, using the project's own vocabulary | never by itself — `disable-model-invocation: true` means the model can't self-trigger it; you type `/wait-what` |
+
+**Third-party credit:** `wait-what` is by **[Matt Pocock](https://github.com/mattpocock/skills)**, republished verbatim from his `mattpocock-skills` plugin (v1.2.3) under MIT. It's kept as his file rather than reworded into mine so the credit stays where it belongs — copyright and provenance travel with it in [`skills/wait-what/LICENSE`](skills/wait-what/LICENSE) and [`skills/wait-what/NOTICE.md`](skills/wait-what/NOTICE.md). Everything else here is mine.
 
 ## How I actually use them
 
@@ -81,7 +84,7 @@ The `lavish-axi` binary is a hard requirement. Without it there is no hook outpu
 
 ### Why it's a tool, not a skill
 
-A skill is a folder in `~/.claude/skills/` that gets loaded when its description matches what you're doing. Lavish doesn't need that machinery: run the binary bare and it prints its own description, visual guidance, playbook index and help text, and the `SessionStart` hook pipes exactly that into every session. It self-advertises once per session instead of waiting to be matched. So cloning this repo gets you the five *skills*; Lavish you install yourself. (The npm package does ship a `SKILL.md` of its own — with the hook wired up you don't need it, and I don't use it.)
+A skill is a folder in `~/.claude/skills/` that gets loaded when its description matches what you're doing. Lavish doesn't need that machinery: run the binary bare and it prints its own description, visual guidance, playbook index and help text, and the `SessionStart` hook pipes exactly that into every session. It self-advertises once per session instead of waiting to be matched. So cloning this repo gets you the six *skills*; Lavish you install yourself. (The npm package does ship a `SKILL.md` of its own — with the hook wired up you don't need it, and I don't use it.)
 
 ### The loop
 
@@ -107,3 +110,5 @@ Skills are just folders with a `SKILL.md` — YAML frontmatter (`name`, `descrip
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+One exception: `skills/wait-what/` is a third-party work under a separate copyright — MIT, Copyright (c) 2026 Matt Pocock. Its licence and provenance live with the skill, in [`skills/wait-what/LICENSE`](skills/wait-what/LICENSE) and [`skills/wait-what/NOTICE.md`](skills/wait-what/NOTICE.md).
