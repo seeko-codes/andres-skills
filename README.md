@@ -2,7 +2,7 @@
 
 A small, battle-tested set of skills for [Claude Code](https://claude.com/claude-code) — pulled straight from my daily setup, with the machine-specific stuff stripped out. Each one is mostly a plain-Markdown instruction file (plus the occasional helper script) that the agent loads when the moment calls for it.
 
-The headliner is **orchestrator**: it turns your main Claude session into a foreman that never writes feature code itself — it scopes work, delegates to the right-sized subagents in isolated git worktrees, reviews what comes back, and integrates. The other six are the skills I reach for most, and they compose with it. An eighth, **wait-what**, isn't mine — it's [Matt Pocock's](https://github.com/mattpocock/skills), republished here verbatim under MIT.
+The headliner is **orchestrator**: it turns your main Claude session into a foreman that never writes feature code itself — it scopes work, delegates to the right-sized subagents in isolated git worktrees, reviews what comes back, and integrates. The other four are the skills I reach for most, and they compose with it. A sixth, **wait-what**, isn't mine — it's [Matt Pocock's](https://github.com/mattpocock/skills), republished here verbatim under MIT.
 
 ## Install
 
@@ -25,8 +25,6 @@ That covers the skills. One companion tool — [Lavish](#lavish-the-companion-to
 | [tdd](skills/tdd/SKILL.md) | Red-green-refactor with behavior-first vertical slices | building features or fixing bugs test-first |
 | [grill-with-docs](skills/grill-with-docs/SKILL.md) | Relentless one-question-at-a-time interview that stress-tests a plan against your project's own docs, updating the glossary and ADRs as decisions land | you want a plan challenged, not implemented |
 | [diagnose](skills/diagnose/SKILL.md) | Disciplined debugging loop: reproduce → minimise → hypothesise → instrument → fix → regression-test | something is broken and guessing hasn't worked |
-| [static-context](skills/static-context/SKILL.md) | Reorganize an existing repo's on-disk context — one home per fact, a capped ledger set, dead text marked dead — so agents stop loading stale or duplicated docs | docs have sprawled, CLAUDE.md keeps growing, or every session re-derives old decisions |
-| [learning-with-ai](skills/learning-with-ai/SKILL.md) | Flips the agent from answering to teaching, grounded in how encoding works: the learner performs the operations, the agent supplies questions, sequence, and checks | you're learning or studying through the agent, or building a product that teaches |
 | [wait-what](skills/wait-what/SKILL.md) **· third-party** | Tells the agent its last message didn't land, and to re-pitch it with context, in Simplified Technical English, using the project's own vocabulary | never by itself — `disable-model-invocation: true` means the model can't self-trigger it; you type `/wait-what` |
 
 **Third-party credit:** `wait-what` is by **[Matt Pocock](https://github.com/mattpocock/skills)**, republished verbatim from his `mattpocock-skills` plugin (v1.2.3) under MIT. It's kept as his file rather than reworded into mine so the credit stays where it belongs — copyright and provenance travel with it in [`skills/wait-what/LICENSE`](skills/wait-what/LICENSE) and [`skills/wait-what/NOTICE.md`](skills/wait-what/NOTICE.md). Everything else here is mine.
@@ -43,20 +41,14 @@ That covers the skills. One companion tool — [Lavish](#lavish-the-companion-to
 
 **diagnose** — for the bugs where "just look at it" already failed. The discipline is the point: no fix until there's a reproduction, no hypothesis without instrumentation to confirm it, and the instrumentation all comes back out afterward.
 
-**static-context** — the other half of context management. Orchestrator governs what a session *does* with its context; static-context governs what's on disk before the session starts. It's written for the repo you already have, not a greenfield one: an inventory-classify-migrate pass that gives every fact one home file, marks dead plans dead, shrinks the instruction files to pointers, and leaves a ledger set — a map, a capped handoff, a dated rulings file — that lets a fresh session pick up a months-long project without re-deriving anything. Distilled from running a multi-month, many-agent project on exactly that file discipline.
-
-**learning-with-ai** — the odd one out: it doesn't manage the agent's work, it changes how the agent treats *you* when you're the one learning. It's built on a mechanism, not a vibe: encoding follows the operations the learner performs, and an AI is the cheapest outsourcing machine ever built for exactly those operations — so the skill makes the agent demand an attempt before it answers, give hints that point instead of state, critique the structure the learner builds rather than supplying its own, and refuse to count "makes sense" as learned. Distilled from building an AI tutoring product on the learning-science literature; the full encoding model rides along in `encoding.md`.
-
 ## How they fit together
 
 ```
-static-context        — the files on disk every session starts from
 orchestrator          — the main session's operating mode
    └─ model-strategy  — picks each subagent's model + effort
         └─ tdd        — how implementation subagents build
 grill-with-docs       — before committing to a plan
 diagnose              — when something breaks anyway
-learning-with-ai      — when you're the student, not the shipper
 ```
 
 A typical feature: grill the plan first, then the orchestrator splits it into roles, model-strategy prices each role, implementation lands test-first in a worktree, and the main thread reviews and merges.
@@ -92,7 +84,7 @@ The `lavish-axi` binary is a hard requirement. Without it there is no hook outpu
 
 ### Why it's a tool, not a skill
 
-A skill is a folder in `~/.claude/skills/` that gets loaded when its description matches what you're doing. Lavish doesn't need that machinery: run the binary bare and it prints its own description, visual guidance, playbook index and help text, and the `SessionStart` hook pipes exactly that into every session. It self-advertises once per session instead of waiting to be matched. So cloning this repo gets you the eight *skills*; Lavish you install yourself. (The npm package does ship a `SKILL.md` of its own — with the hook wired up you don't need it, and I don't use it.)
+A skill is a folder in `~/.claude/skills/` that gets loaded when its description matches what you're doing. Lavish doesn't need that machinery: run the binary bare and it prints its own description, visual guidance, playbook index and help text, and the `SessionStart` hook pipes exactly that into every session. It self-advertises once per session instead of waiting to be matched. So cloning this repo gets you the six *skills*; Lavish you install yourself. (The npm package does ship a `SKILL.md` of its own — with the hook wired up you don't need it, and I don't use it.)
 
 ### The loop
 
