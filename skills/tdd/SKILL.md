@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", wants integration tests, or asks for test-first development.
+description: "SUPERSEDED for automatic use by lean-quality — do NOT load this automatically for code writing, TDD, red-green-refactor, or test-first requests; lean-quality covers all of that. Load ONLY when the user explicitly invokes /tdd by name."
 ---
 
 # Test-Driven Development
