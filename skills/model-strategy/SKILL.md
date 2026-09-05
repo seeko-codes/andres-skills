@@ -1,87 +1,131 @@
 ---
 name: model-strategy
-description: Assign the right model tier and reasoning effort to every subagent before spawning them, instead of letting them all inherit one model. Use whenever you are about to launch subagents — the Agent/Task tools, a Workflow, or any multi-agent fan-out (parallel finders, pipelines, judge panels, verifiers, worktree migrations). Trigger on "spawn agents", "use subagents", "run a workflow", "fan out", "orchestrate", "delegate this", or any plan that dispatches more than one agent.
+description: Choose installed subagent models and reasoning effort from task difficulty, consequence, and verifiability. Use whenever launching subagents, workflows, fan-outs, reviewers, or worktree agents.
 ---
 
-# Model Strategy for Subagents
+# Model strategy
 
-Before dispatching **any** subagent, decide its model **and** reasoning effort on purpose. The default is to inherit the parent model — that is almost always wrong for a fleet, because most roles in a workflow are cheaper or harder than the orchestrator. A strategized fleet is faster and cheaper for the same quality.
+This skill does not decide whether to delegate. The orchestrator's activation gate decides that first.
+Load model strategy only after a subagent has a paying question, frozen slice, or review target.
 
-**Rule: never spawn a batch of subagents on one uniform model without first running the decision below.** One sentence of reasoning per role is enough — don't over-deliberate.
+Use a small, strong fleet. Optimize expected correctness and decision quality, not token price or
+agent count. One capable agent holding the connected problem is usually better than several weaker
+agents exchanging summaries.
 
-## The one-pass decision
+Read [EVIDENCE.md](EVIDENCE.md) when changing this policy or when the installed model family
+changes.
 
-For each distinct role in the workflow, answer two questions:
+## Verify availability first
 
-1. **How hard is the reasoning?** → picks the **model tier**.
-2. **How much does a wrong answer cost the whole run?** → picks the **effort** (and whether to verify).
+1. Inspect the active harness's native dispatch schema and available model metadata. Use
+   registry discovery only when the live tool provides it. The tool schema itself is the
+   authority in harnesses without an agent-profile registry.
+2. Record the selected model, effort, tools, and write access where exposed. Spot-check a
+   profile definition only when the native runner actually uses one. Unknown or inherited
+   metadata must be labeled as such, not inferred from another harness's profile files.
+3. Select only model and effort controls accepted by the current tool. Prefer the capable
+   parent model when native children inherit it. Harness-specific syntax belongs in that
+   harness's adapter, never in an implementation brief's requirements.
+4. Use native Codex subagents in Codex, native Claude agents in Claude, and native Pi
+   subagents in Pi. A different runner does not change the task or require permission to
+   substitute. Preserve isolation, review, and completion checks across all three.
 
-Then write it down as a fleet plan (see template below) before you spawn anything.
+## Keep the three controls separate
 
-## Tier heuristics
+- **Base model** determines learned capability. More reasoning cannot reliably supply knowledge or
+  strategies outside that model's reach.
+- **Reasoning effort** controls how much internal reasoning the selected model may use. It improves
+  search, checking, and multi-step work within that model's capabilities.
+- **Curiosity procedure** improves inquiry direction. Rank open questions, predict before reading, consolidate findings, and check for
+  surprises. This procedure does not change the base model or its reasoning allowance.
 
-| Role in the fleet | Tier | Why |
-|---|---|---|
-| Mechanical / high-volume: grep-and-collect, file listing, format conversion, boilerplate edits, extract-to-schema, simple lint | **haiku** | Cheap, fast, runs wide in parallel. Reserve smarter tiers for judgment. |
-| Standard build/read/research: implement a scoped change, summarize a subsystem, single-angle search, draft docs, routine review | **sonnet** | The workhorse. Most pipeline stages live here. |
-| Hard reasoning / high stakes: architecture & design tradeoffs, adversarial verification, judge/synthesis stages, security-sensitive or ambiguous code, the final "is this actually correct?" gate | **opus** | Use where a wrong answer is expensive or the problem is genuinely open. |
-| The very hardest problems: the most complex or open-ended reasoning, gnarly multi-system debugging, design synthesis where opus-level judgment isn't enough; also creative/prose work where voice matters | **fable** | The smartest tier — sits **above opus**. Reserve it for tasks that are genuinely at the ceiling. |
+Do not prompt a reasoning model to reveal private chain of thought. Ask for conclusions, evidence,
+checks, and concise rationale. Use the curiosity protocol to organize external inquiry.
 
-The ladder is **haiku < sonnet < opus < fable**. Default when unsure: **sonnet**. Escalate a role only when you can name why it's hard; drop it to haiku only when it's genuinely mechanical.
+## Assignment, not persona
 
-**Mismatches are forbidden in both directions:**
-- Never assign a **lower** tier to a harder-tier task — no sonnet subagent on an opus/fable-hard problem. It will produce a plausible wrong answer, and verification cost eats the savings.
-- Never assign a **higher** tier to routine work — no fable subagent on a sonnet-grade task. You pay ceiling prices for workhorse output.
+Select general-purpose agents. A brief's context and question define the role for that
+run; profile labels do not confer expertise. Model strength and available read/write
+tools still matter. Do not select tool-restricted profiles merely to satisfy a fixed
+worker/explorer/reviewer taxonomy. An independent
+review needs separate context and an adversarial brief, not a special profile name.
 
-## Effort heuristics (Workflow `effort`, or how hard the agent should think)
+Give every agent the full toolset the active harness makes available. Do not apply
+role-based tool allowlists or remove tools for a reading or review assignment. A brief can
+bound the work and which files may change without disabling tools. Narrow tool access only
+when the user explicitly requests it or the harness itself enforces a restriction.
 
-Effort upgrades have steeply diminishing returns: benchmark cost curves (DeepSWE) show **high → max buys a few points of quality for a multiple of the cost**, and even **medium → high is sometimes not worth it**. Prefer the right *model tier* at moderate effort over a lower tier cranked to max.
+## Choose the model before the effort
 
-- **low** — mechanical stages, large fan-out, anything on haiku. Keep it cheap.
-- **medium** — default for workhorse stages. Question every upgrade past this.
-- **high** — the hardest judgment stages only: final verifiers, design synthesis, the gate that decides whether findings are real. Pair with opus/fable.
-- **xhigh / max** — almost never. Justified only when a single run-deciding stage demonstrably failed at high and re-running smarter beats re-designing the stage.
+The labels **strong-tier**, **standard-tier**, and **mechanical-tier** describe this
+policy's assignments, not provider model IDs. Map them to models actually exposed by the
+active runner. Never pass these labels as model parameters. If only the parent model is
+available, use it and report inheritance. Validate each mapping on representative tasks.
 
-## Shape-of-workflow rules
+Choose **strong-tier by default** when any of these is true:
 
-- **Fan-out finders** (many parallel searchers): haiku or sonnet, low/medium effort. Breadth beats depth here.
-- **Pipeline middle stages**: sonnet. Only the final synthesis stage climbs to opus.
-- **Adversarial verify / judge panels**: opus at high effort. This is where uniform-cheap fleets silently pass bad findings — spend here.
-- **Worktree migrations** (`isolation: 'worktree'`): match tier to per-site difficulty; a repetitive codemod is haiku, a semantic refactor is sonnet+.
-- **Single delegated subagent** (not a fleet): match the parent's tier unless the task is clearly easier or harder — a one-off grep drops to haiku, a design question climbs to opus.
+- requirements or design decisions remain open;
+- the work joins several files, concepts, systems, or sources;
+- failure is hard to detect, costly, or likely to look plausible;
+- the task is architecture, planning, research synthesis, ambiguous debugging, security, migration,
+  adversarial review, or final integration;
+- the agent must notice that the brief itself is wrong.
 
-## Cost/quality sanity check
+Choose **standard-tier only for bounded execution** when all of these are true:
 
-Before spawning, glance at the fleet plan and ask:
-- Am I paying opus prices for grep? → downgrade.
-- Is a cheap model gating correctness on the final step? → upgrade that one stage.
-- Do 20 parallel agents all need to be smart, or just the 2 that decide? → make the 18 cheap.
+- the contract and success criteria are frozen;
+- the relevant context is local and familiar;
+- few judgment calls remain;
+- tests, types, schemas, or another strong verifier can reject a wrong result;
+- a strong-tier reviewer owns the consequential gate.
 
-## Fleet plan template
+Choose **mechanical-tier only for mechanical work** when the output can be checked exactly: file inventory,
+literal extraction, deterministic reformatting, generated lists, or running a specified command. If a
+plausible but wrong answer could pass unnoticed, mechanical-tier is below the capability bar.
 
-Emit this (briefly) before dispatching, so the choice is explicit and reviewable:
+When uncertain between tiers, move up. Do not replace one strong-tier agent with several standard-tier or mechanical-tier agents.
 
+## Choose effort within the model
+
+Use only settings exposed by the current runner. The labels below are policy guidance,
+not a claim that every provider accepts them. Report inherited or unavailable effort honestly.
+
+- **low**: exact retrieval, simple execution, or a short tool sequence with a strong verifier. Mechanical work
+  stays here. Do not use low for interpretation or consequential production work.
+- **medium**: default for bounded implementation and ordinary agentic work. This is the minimum for
+  standard-tier production code and strong-tier work whose decisions are already settled.
+- **high**: complex debugging, planning, research, connected implementation, and high-value
+  judgment. This is the normal strong-tier setting for exploration.
+- **xhigh**: difficult security or code review, deep research, and long-running agentic work where
+  representative checks show a gain over high.
+- **max**: one hardest quality-first gate after xhigh proves insufficient. Do not make max a ritual.
+
+Use effort to deepen a capable model, not to rescue an underpowered choice. Prefer strong-tier/medium over
+standard-tier/high for unresolved judgment. Standard-tier/high can beat strong-tier/low on some in-capability, verifiable tasks,
+but that is an evaluation result to prove, not a routing assumption.
+
+## Shape the fleet
+
+- Run the orchestrator on the strongest installed general model, using an accepted
+  effort setting suited to judgment.
+- Keep connected work with one strong-tier agent.
+- Parallelize only independent questions or write-disjoint slices.
+- Use standard-tier for the routine residue after strong-tier or the main session freezes the contract.
+- Use mechanical-tier through scripts whenever possible; a deterministic command is better than a mechanical
+  model call.
+- Review consequential work with an independent strong-tier context. Different context and an adversarial
+  lens create de-correlation; a weaker reviewer does not create useful independence if it misses the bug.
+
+## Fleet plan
+
+Before dispatch, print only what is needed:
+
+```text
+Available: <agent>=<exact model>/<effort>, ...
+Plan:
+- <paying question or frozen slice> -> <agent>/<model>/<effort> because <task property>
+Quality gate: <independent check or reviewer>
 ```
-Fleet plan:
-- <role> ×N — <tier>/<effort> — <one-line why>
-- <role> ×N — <tier>/<effort> — <one-line why>
-Spend concentrated on: <the stage that decides correctness>
-```
 
-Example — a review workflow:
-
-```
-Fleet plan:
-- dimension finders ×5 — sonnet/medium — scoped reviews, breadth
-- adversarial verifiers ×1-per-finding — opus/high — the correctness gate
-- synthesis ×1 — opus/high — merges & ranks, expensive to get wrong
-Spend concentrated on: verify + synthesis; finders stay cheap
-```
-
-## How to apply it in each harness
-
-- **Agent tool** — pass `model` (`opus` | `sonnet` | `haiku` | `fable`) per `Agent` call. Different roles → different calls → different models, in the same batch.
-- **Workflow** — pass `model` and `effort` per `agent(...)` call. Omit to inherit the session model **only** for roles that genuinely match the parent tier; set them explicitly for everything else. Scale fleet size and tier to the task, not to habit.
-- **Codex / other agents** — same discipline: name each subagent's role, assign the cheapest tier that clears the bar, concentrate the expensive tier on the stages that decide correctness.
-
-Keep it lightweight: a fleet plan is 3–5 lines, not an essay. The point is that no subagent gets a model by accident.
+A fleet plan fails if it routes judgment to mechanical-tier, uses standard-tier because it is cheaper, fans out a connected
+problem, or raises effort without first checking that the base model fits the task.
