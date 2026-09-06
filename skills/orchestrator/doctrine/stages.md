@@ -24,8 +24,6 @@ it is not approval to release or a claim that the goal is complete.
 Before hardening the selected scope, the manager records evidence that:
 
 - Responsibilities and dependencies form a plausible whole; important seams were exercised.
-- Implementation boundaries encapsulate internals and permit substitution through explicit
-  public contracts; replacement/state limitations are understood (see [components.md](components.md)).
 - The proposed user flow or behavior addresses the horizontal goal and acceptance criteria.
 - Alternatives that materially affect structure have been considered or tested.
 - No unresolved structural decision is likely to invalidate the implementation being hardened.

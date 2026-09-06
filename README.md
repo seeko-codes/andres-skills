@@ -64,11 +64,6 @@ The complete sequence of vertical slices covers the horizontal goal; concurrent 
 disjoint write ownership and resolved prerequisites. Each agent receives sufficient relevant
 context, an appropriate model/effort allocation, and checkable acceptance criteria.
 
-Implementation slices produce replaceable components with public contracts, private internals,
-and explicit dependencies. Use lightweight modules/interfaces where sufficient; plugin-like
-composition does not require a plugin framework or promise live hot-swapping. Check substitution
-and compatibility during hardening. See [component boundaries](skills/orchestrator/doctrine/components.md).
-
 User configuration (set in the request or project instructions):
 
 | Parameter | Default |

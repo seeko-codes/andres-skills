@@ -9,7 +9,6 @@ and only the matching task guidance when preparing the brief.
 | DELIVERABLE | Exact output and its necessary contribution to the horizontal goal |
 | STAGE | Exploration or hardening, why, and evidence needed to exit the stage |
 | CONTRACT | Experiment/question in exploration; settled requirements/interfaces in hardening; constraints in both |
-| COMPONENT | For implementation: public contract, required/provided dependencies, owned state, wiring owner, and replacement constraints |
 | INPUTS | Curated sources with read scope and purpose; relevant dependency outputs |
 | AUTHORITY | Local choices the agent owns; cross-slice decisions it must escalate |
 | BOUNDS | Exact write-set, isolation path, applicable local instructions; no delegation |

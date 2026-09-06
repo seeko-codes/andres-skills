@@ -71,10 +71,7 @@ must cover H. Specify the current batch precisely and refine future batches afte
 Re-slice oversized contributions relative to their own deliverable. Keep connected work
 with one capable owner when splitting would create more coordination than it saves.
 
-Implementation slices should produce replaceable components: stable public contracts,
-encapsulated internals, and explicit dependencies. Disjoint writes alone do not establish
-replaceability. Read [components.md](doctrine/components.md) when defining implementation
-boundaries. Choose the smallest useful module/interface mechanism; a plugin loader is optional.
+Vertical slices should be easy to replace.
 
 ## 3. Allocate capability and contract-specific context
 
