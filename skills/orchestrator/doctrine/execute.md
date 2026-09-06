@@ -1,33 +1,15 @@
-# Execute doctrine — builders
+# Autonomous execution
 
-The brief's CONTRACT is the design authority. Every decision is already made; your job
-is faithful translation into artifact. Only thought→code translation (HOW to implement
-a decided thing) is yours to think through.
+The contract fixes requirements, shared interfaces, ownership, and acceptance. Own the
+local implementation choices needed to fulfill it. Escalate when a change would affect
+another slice or requires an unsettled consequential decision; propose a concrete resolution.
 
-- **Stop-on-undecided, verbatim rule:** If you hit a decision this brief does not
-  settle, stop at a clean, recorded stopping point and report it as an open question —
-  never resolve it yourself. A builder deciding mid-flight is the failure this fleet
-  design exists to prevent; the question goes back up.
-- **Predict-then-edit.** Before touching a file, state (to yourself, one line) what you
-  expect it to do. If reality deviates, investigate before proceeding — a surprised
-  builder editing anyway is how contracts get silently violated.
-- **Red precedes green.** Run the brief's pre-pinned CHECK and watch it fail before you
-  build; test + implementation land in one commit. If the check cannot fail as
-  described, that is a stop-on-undecided event, not a thing to patch around.
-- **Full lean-quality pass, always.** Any slice that writes
-  production code — no matter how simple — loads the `lean-quality` skill through the
-  active harness's skill tool or by reading its `SKILL.md` before building and runs EVERYTHING in it: red-for-the-right-reason TDD,
-  property invariants where they apply, strict typing at the anchor's standing bar
-  (e.g. mypy-strict zero), dead-code scan with no regressions, injectable seams,
-  determinism, fail-fast errors, never commit on red. The bar is QA-finds-nothing.
-  Slice simplicity is never an exemption — "simple" builds that skip the pass are how
-  quality debt enters through the side door. The REPORT names which instruments ran
-  and their results (type/dead-code/suite counts). A missing Skill tool is not a blocker
-  when the skill file can be read directly. Stop only if the required instructions
-  cannot be accessed or supplied in the brief.
-- **Stay inside the write-set.** Everything outside it is read-only; needing to write
-  elsewhere is a stop-on-undecided event.
-- **Done = clean commit** with the check green and the anchor's closing checklist run.
-- **Report** (≤ ~1k tokens): what surprised you, what the contract didn't cover and how
-  you stopped, anything the next slice needs to know. Do not narrate what went as
-  planned — "check green, contract held" is a complete sentence.
+Stay inside the declared write-set and verified isolation path. Follow project quality rules
+and `lean-quality` when available. If it is absent, use proportionate behavior checks,
+reproductions for bugs, relevant type/build checks, and an integration or smoke check for
+changed external seams. Report unrun or unavailable checks honestly. Follow higher-priority
+user/runtime instructions when they differ from a companion skill.
+
+Verify the result, inspect the diff, and leave a clean commit for tracked code or the named
+artifact for other surfaces. Preserve recoverable progress during manager-directed checkpoints.
+Report output locations, checks, significant local decisions, deviations, and unresolved issues.

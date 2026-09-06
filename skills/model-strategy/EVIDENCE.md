@@ -2,7 +2,8 @@
 
 This public edition preserves the local policy's routing rules without publishing
 machine-specific model IDs, context limits, or claims about a provider's current lineup.
-The tier labels in `SKILL.md` are assignments to validate, not benchmark rankings.
+Capability assignments in `SKILL.md` are policy choices to validate, not benchmark rankings.
+The maximum-capability, maximum-effort manager rule is the user's chosen operating policy.
 
 ## Before changing the mapping
 
@@ -25,5 +26,5 @@ Independent context reduces shared assumptions, but a reviewer still needs enoug
 capability to find the relevant defects. More agents or more effort are not substitutes
 for a demonstrated quality bar.
 
-Question ordering and prediction checks are prompt procedures. They neither select a
-stronger model nor change the runner's reasoning-effort setting.
+Focused context and a precise contract do not change the model's learned capability or
+the runner's reasoning-effort setting. Evaluate those controls separately.

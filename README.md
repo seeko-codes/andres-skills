@@ -4,10 +4,10 @@ A curated set of agent skills from my daily setup. Each skill is a Markdown inst
 file, sometimes with supporting references or a helper script. This repo is a portable
 selection, not a backup of my local agent configuration.
 
-The main change in this edition is selective delegation. `orchestrator` keeps decisions
-in the main session and delegates only when a bounded result saves more context than its
-brief and review cost. `lean-quality` now governs implementation; `tdd` remains available
-by explicit request.
+The orchestrator now centers context management: breadth-first planning, horizontal goals,
+vertical slices, dependency-ordered batches, and focused contexts for a small capable team.
+Managers request the smartest available model and maximum effort. Workers are autonomous
+within their contracts. Optional Wayfinder mode maintains the larger sequence and handoffs.
 
 ## Install
 
@@ -36,9 +36,9 @@ skills; the bundled instructions include the fallback procedure.
 
 | Skill | What it does | When to use it |
 |---|---|---|
-| [orchestrator](skills/orchestrator/SKILL.md) | Keeps connected decisions in the main session; delegates bounded reading, execution, and independent review | Context-heavy work or independent slices where delegation pays |
+| [orchestrator](skills/orchestrator/SKILL.md) | Manages horizontal goals through focused autonomous agents and dependency-ordered batches | Context-heavy work or independent slices where delegation pays |
 | [model-strategy](skills/model-strategy/SKILL.md) | Maps task risk and verifiability to available models and effort settings | After deciding to delegate, before launching a child |
-| [lean-quality](skills/lean-quality/SKILL.md) | Red-green-refactor, property checks, strict types, dead-code checks, and verification before committing | Writing or changing production code after the design is settled |
+| [lean-quality](skills/lean-quality/SKILL.md) | Red-green-refactor, property checks, strict types, dead-code checks, and verification before committing | Writing or changing production code within established requirements and interfaces |
 | [tdd](skills/tdd/SKILL.md) | Behavior-first vertical slices with references on tests, interfaces, mocking, and refactoring | Explicit `/tdd` requests; automatic implementation work uses `lean-quality` |
 | [grill-with-docs](skills/grill-with-docs/SKILL.md) | Challenges a plan one question at a time and records surviving terminology and decisions | Stress-testing a plan against project docs |
 | [diagnose](skills/diagnose/SKILL.md) | Reproduce, minimise, hypothesise, instrument, fix, and regression-test | Bugs where guessing has not worked |
@@ -59,16 +59,28 @@ tdd                   Optional, explicitly requested TDD reference.
 wait-what             Ask for a clearer explanation.
 ```
 
-Small tasks stay local. For larger work, the main session freezes the contract, assigns
-disjoint writes to isolated worktrees, reviews results, and checks that the combined
-changes work. Each child gets a bounded brief and a checkable completion condition.
-Children do not delegate again.
+Small tasks stay local. For larger work, map the whole goal before preparing narrow contracts.
+The complete sequence of vertical slices covers the horizontal goal; concurrent work has
+disjoint write ownership and resolved prerequisites. Each agent receives sufficient relevant
+context, an appropriate model/effort allocation, and checkable acceptance criteria.
 
-The tier names in `model-strategy` are policy labels, not model IDs. They must be mapped
-to models the current runner actually exposes. The policy favors a capable model for
-connected or consequential work and reserves weaker models for work with reliable
-checks. See [the validation notes](skills/model-strategy/EVIDENCE.md) before changing
-that mapping.
+User configuration (set in the request or project instructions):
+
+| Parameter | Default |
+|---|---|
+| `max_context_per_agent` | `100000` tokens |
+| `context_warning_fraction` | `0.8` |
+| `wayfinder` | `false` |
+
+The manager monitors context occupancy; crossing the limit is a sizing failure. Unknown
+telemetry is reported honestly. With Wayfinder enabled, the permitted structure is
+Wayfinder → orchestrators → leaf workers. Otherwise an orchestrator has only leaf workers.
+Renewal, telemetry and nested dispatch require runtime support; the skill does not install
+those capabilities. Human-readable status explains actions, purpose, dependencies and handoffs.
+
+See [Wayfinder](skills/orchestrator/WAYFINDER.md),
+[context accounting](skills/orchestrator/CONTEXT.md), and
+[model validation](skills/model-strategy/EVIDENCE.md) for the conditional details.
 
 ## What is different from my local setup
 

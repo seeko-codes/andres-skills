@@ -5,11 +5,11 @@ description: "THE single skill for executing an idea into code — use automatic
 
 # lean-quality — executing an idea into verified code
 
-Scope: the EXECUTION stage. The idea, design, and interface are already decided;
-this skill governs turning them into code that provably works. It does not cover
-ideation, architecture, or requirements — when those turn out to be unsettled
-mid-execution, stop and resolve them first; executing an undecided design produces
-confident code with a wrong spec, the one failure class no test below can catch.
+Scope: the EXECUTION stage. Requirements, shared interfaces, and acceptance are established. The worker owns local
+implementation choices within that contract. Escalate unresolved requirements or changes
+that affect another slice; do not stop for routine local design choices. This skill governs
+implementation quality, while the orchestrator owns cross-slice decisions. Passing checks
+is evidence, not proof that the specification itself is correct.
 
 ## The spine: test-driven development
 
@@ -61,8 +61,8 @@ checks — at a different altitude:
    the language's strictest checker) and `vulture`-class dead-code detection on the
    changed surface, kept at ZERO findings via fixes or a *documented* whitelist —
    one line of justification per retained name; never delete deliberately-deferred
-   entry points. A strict type-check is a proof over every path, including paths no
-   test reaches. Keep both in the done-checklist so they cost nothing forever.
+   entry points. A strict type-check checks static constraints beyond sampled tests; it does not
+   prove runtime behavior or specification correctness. Keep both in the done-checklist so they cost nothing forever.
 
 3. **Example tests where properties fit poorly:** CLI handlers, parsing of external
    tool output, error branches with specific messages. These are the classic TDD
@@ -73,8 +73,8 @@ checks — at a different altitude:
    probe to find what the suite would not notice; read survivors as a map of
    genuine gaps vs equivalent mutants (4–39% of survivors are unkillable in
    principle — 100% kill is explicitly NOT the target; the score is a meter, never
-   a gate). A kill-count that must not drop is also the cheapest behavior-neutrality
-   proof for changes claiming to be refactor-only.
+   a gate). A nondecreasing kill-count is a regression signal for changes claiming to be
+   refactor-only; it is not proof of behavior neutrality.
 
 ## Construction principles (while the code is being written)
 

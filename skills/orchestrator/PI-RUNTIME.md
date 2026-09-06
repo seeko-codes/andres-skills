@@ -1,27 +1,9 @@
 # Pi runtime reference
 
-Read only in Pi when its native subagent tool is available. `SUBAGENTS.md` owns the
-portable task contract. No Pi package or profile is required in Claude or Codex.
-
-## Resolve the installed runtime
-
-Inspect the live tool schema and its installed guide before using registry, workflow,
-background, or worktree controls. Package versions differ. Do not assume that a local
-profile name, workflow shape, keyboard shortcut, or model alias exists elsewhere.
-
-Choose a general-purpose profile whose actual model, tools, and write access fit the
-brief. `model-strategy` owns capability selection. A profile's name is not evidence of
-expertise, and a runtime default does not decide whether delegation is worthwhile.
-
-## Launch and completion
-
-- Give each child the bounded question or frozen contract and matching doctrine.
-- Prefer managed worktree isolation for writes when available. Otherwise create and
-  verify an explicit worktree before writing, and put its absolute path in the brief.
-- Use native status, messaging, wait, and cancellation controls. Never substitute a
-  detached agent CLI for tracked dispatch.
-- Join completed work, verify its checks and commit, then review the composed result
-  before merging. A status display or report file alone does not establish completion.
-
-If the installed runtime cannot preserve a required boundary, keep the task local or
-report the missing capability. Never silently discard isolation or review.
+Use only inside Pi. Inspect the installed native subagent schema for model/effort, context
+occupancy, managed worktrees, background completion, messaging, and permitted nesting.
+Profile names and FleetView displays are not evidence of model capability or context usage.
+Use a general-purpose profile and a bounded brief. Prefer managed worktrees for writes;
+otherwise verify an explicit path. Track completion and inspect checks before integration.
+Wayfinder renewal and child delegation require actual native support. Follow the fallback
+in [SUBAGENTS.md](SUBAGENTS.md) when that support is absent. Do not run detached agent CLIs.
