@@ -13,6 +13,8 @@ when available. If absent, use proportionate behavior checks, bug reproductions,
 static/build checks, and integration or smoke checks for changed seams. Use screenshots and
 real interactions for UI where relevant. Do not claim post-hoc prototype tests were test-first.
 
+Implement against public contracts and keep internals encapsulated. Make dependencies and
+wiring explicit; check substitution during hardening as described in [components.md](components.md).
 Stay within write ownership and verified isolation. Respect project rules and higher-priority
 user/runtime instructions in both stages. Inspect the diff and preserve a clean commit or named
 artifact. Mark exploratory checkpoints as prototypes, not completed production deliverables.
