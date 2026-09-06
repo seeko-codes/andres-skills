@@ -64,6 +64,15 @@ The complete sequence of vertical slices covers the horizontal goal; concurrent 
 disjoint write ownership and resolved prerequisites. Each agent receives sufficient relevant
 context, an appropriate model/effort allocation, and checkable acceptance criteria.
 
+Keep decisions that change together in one slice; investigate repeated cross-slice coordination
+as evidence to reconsider the split. Explore the assumption most likely to invalidate downstream
+work before investing in it, including early feasibility checks where needed.
+
+The human chooses or approves subagent reasoning effort before dispatch. Managers recommend
+settings in batches with the reason and tradeoff. Existing scoped effort approvals persist;
+new assignments or changes outside that scope return to the human. Maximum-effort managers
+remain the standing policy. Runtime limitations are disclosed before the decision.
+
 User configuration (set in the request or project instructions):
 
 | Parameter | Default |

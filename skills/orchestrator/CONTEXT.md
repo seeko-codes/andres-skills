@@ -41,7 +41,7 @@ termination. Resume only a narrowed remainder in fresh context or re-slice it. R
 which input or work expansion caused the oversized assignment to improve the next cut.
 No destructive reset or deletion of unfinished work is implied.
 
-A handoff contains: goal and acceptance; configuration; completed outputs and exact
+A handoff contains: goal and acceptance; configuration and user-approved effort policy/choices with their scope; completed outputs and exact
 commits/artifact locations; relevant rationale; unresolved decisions; next assignments;
 active run IDs, worktree paths, ownership, and unmerged changes. Quiesce active workers
 or explicitly transfer their handles if supported. Never duplicate dispatch because a

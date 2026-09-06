@@ -6,6 +6,11 @@ quality stage, not a competing search algorithm. Use the stage appropriate to ea
 
 ## Exploration
 
+After mapping the goal broadly, test the unresolved assumption most likely to invalidate
+substantial downstream work. Use the smallest experiment that can inform the decision.
+Defer exhaustive hardening, but bring forward a security, performance, or integration check
+when its result determines whether the arrangement is viable.
+
 When arrangement is uncertain, name the question, candidate approaches, evidence required,
 and stopping condition. Build the smallest useful prototype or vertical skeleton; try another
 approach when findings justify it. A contract may commission an experiment rather than freeze

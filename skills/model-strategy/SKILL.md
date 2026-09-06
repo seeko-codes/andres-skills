@@ -21,7 +21,7 @@ use a supported transition when available and authorized, never pretend to upgra
 ## Subagents
 
 Subagents may equal the manager in both capability and effort or use less when sufficient.
-Choose model and effort separately based on the remaining work:
+Choose the model and recommend effort separately based on the remaining work:
 
 | Work | Allocation |
 |---|---|
@@ -32,8 +32,19 @@ Choose model and effort separately based on the remaining work:
 
 Do not equate execution with easy work. Consider whether the agent must detect a bad brief,
 whether mistakes look plausible, their consequences, and whether checks reliably reject them.
-When uncertain, route upward or resolve the ambiguity before commissioning cheaper execution.
+When uncertain, recommend greater capability/effort or resolve the ambiguity before
+commissioning cheaper execution. Effort changes require the human decision described below.
 Autonomy within the contract is compatible with a narrow context package.
+
+## Human decision on subagent effort
+
+Before dispatch, show the human the assignment, model, supported effort choices, recommendation,
+and qualitative quality/time/cost tradeoff. Batch the proposals. Wait for a choice or approval
+unless an existing user-approved policy covers that assignment; silence is not approval.
+Record the choice and its scope, preserve it across handoffs, and return to the human before
+changing effort outside that scope. Do not ask again for covered assignments. Report inherited
+or unavailable effort controls before approval and never claim a setting the runtime cannot apply.
+The established maximum-effort policy for manager roles remains a standing user instruction.
 
 ## Resolve and report
 

@@ -71,7 +71,8 @@ must cover H. Specify the current batch precisely and refine future batches afte
 Re-slice oversized contributions relative to their own deliverable. Keep connected work
 with one capable owner when splitting would create more coordination than it saves.
 
-Vertical slices should be easy to replace.
+Keep decisions that change together within one slice. Other slices should need its
+contract, not its internal choices. Vertical slices should be easy to replace.
 
 ## 3. Allocate capability and contract-specific context
 
@@ -86,6 +87,16 @@ necessary global decisions into local constraints and concise rationale. Exclude
 features, conversations, and historical debate. Focused context supplies knowledge;
 model capability still determines whether the agent can use it well.
 
+Before dispatch, propose subagent reasoning effort to the human with the assignment,
+selected model, supported effort choices, recommendation, and expected quality/time/cost
+tradeoff (label estimates). Group proposals by batch. Wait for the human's choice or approval
+unless an existing user-approved effort policy already covers the assignment. Silence is not
+approval. Record the scope of that approval in the brief and carry it through handoffs;
+ask again only for assignments or changes outside that scope. Do not silently raise or lower
+effort. If effort is inherited or unavailable, explain the actual control limitation before
+approval; do not promise an unsupported setting. The established maximum-effort manager
+policy also covers Wayfinder-launched managers unless the user changes it.
+
 ## 4. Dispatch, observe, and adjust
 
 Read [SUBAGENTS.md](SUBAGENTS.md) for the active runtime. Use native tracked agents and
@@ -98,6 +109,10 @@ Crossing the configured ceiling means the assignment was oversized for its budge
 Preserve progress, stop further growth, and re-slice or hand off the remaining work.
 Missing requirements, shared contract changes, or ownership collisions return to the manager;
 routine choices inside the contract stay with the worker.
+If slices repeatedly need one another's unfinished reasoning or manager mediation,
+reconsider the boundary: combine the coupled work or resolve its shared decision first.
+Investigate the cause rather than automatically merging assignments; a missing requirement
+can produce the same symptom. Any revised effort assignment follows the human approval rule.
 
 ## 5. Verify, integrate, and continue
 

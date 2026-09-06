@@ -13,7 +13,7 @@ and only the matching task guidance when preparing the brief.
 | AUTHORITY | Local choices the agent owns; cross-slice decisions it must escalate |
 | BOUNDS | Exact write-set, isolation path, applicable local instructions; no delegation |
 | ACCEPTANCE | Checks and evidence needed to accept the result |
-| RESOURCES | Actual model/effort, context ceiling, warning level, monitoring availability |
+| RESOURCES | Actual model/effort, human effort choice or covering policy and its scope, context ceiling, warning level, monitoring availability |
 | REPORT | Output locations, check results, consequential rationale, deviations and gaps |
 
 Work-alone instruction: Do the assigned work directly. Do not spawn agents or launch

@@ -13,7 +13,10 @@ At launch and significant changes, show:
 Use real run identifiers once launched; planned agents are labeled planned. Context values
 include measured/estimated/unknown and freshness. Show the active batch, queued work, and exploration/hardening stage. Explain which
 uncertainty an experiment resolves, the evidence for coherence, and why hardening starts.
-Status vocabulary: planned, running, blocked, verifying, integrating, complete, handed off.
+Status vocabulary: planned, awaiting effort decision, running, blocked, verifying,
+integrating, complete, handed off. Before dispatch, distinguish recommended effort from
+approved effort and show the user's choice or covering policy. Group new effort decisions
+by batch; preserve approvals across handoffs. Explain any proposed change before applying it.
 
 Explain planning, dispatch, blockers, changed decisions, verification, integration, and handoff.
 During long work provide a concise heartbeat, normally within 60 seconds when the runtime
@@ -22,5 +25,5 @@ Do not issue updates for every tool call or repeat the entire board without a me
 
 Escalations to the human state the decision, why evidence cannot settle it, alternatives,
 consequences, and recommendation. Highest-level direction and consequential uncertain
-tradeoffs belong to the human. Routine execution, telemetry checks, and authorized handoffs do not.
+tradeoffs and uncovered subagent effort choices belong to the human. Routine execution, telemetry checks, and authorized handoffs do not.
 Summaries give decision rationale and evidence, never hidden chain-of-thought transcripts.

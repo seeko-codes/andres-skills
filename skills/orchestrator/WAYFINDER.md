@@ -18,7 +18,7 @@ Runtime restrictions always take precedence; use the documented flat fallback if
 
 Maintain a compact checkpoint in an authorized project/document location containing:
 ordered horizontal goals and dependencies; accepted results and evidence; important decisions
-and rationale; configuration; open human decisions; active owners/run IDs; and next assignments.
+and rationale; configuration and scoped human effort approvals; open human decisions; active owners/run IDs; and next assignments.
 Keep detailed execution histories with their owners. Do not duplicate all child transcripts.
 
 Monitor manager context against the same user-configured limit. Near the warning level,
