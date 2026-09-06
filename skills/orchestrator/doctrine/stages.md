@@ -16,8 +16,7 @@ and stopping condition. Build the smallest useful prototype or vertical skeleton
 approach when findings justify it. A contract may commission an experiment rather than freeze
 an implementation architecture. Preserve write ownership, context limits, and shared constraints.
 
-Do not automatically load lean-quality or demand its full TDD/property/type/dead-code/mutation
-checklist. Run what makes the experiment credible: a build or targeted check, a real interaction,
+Do not automatically load lean-quality or impose exhaustive hardening checks. Run what makes the experiment credible: a build or targeted check, a real interaction,
 a narrow integration probe, or screenshots of relevant UI states. Tests are useful during
 exploration when they answer the uncertainty; they are not a universal entry toll. Preserve
 existing mandatory checks and data/access protections. Use isolated work and reversible effects.

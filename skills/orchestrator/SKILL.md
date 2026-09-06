@@ -38,7 +38,12 @@ exclusions, and integrated acceptance criteria before dispatch. Map the major wo
 its dependencies broadly; do not exhaustively specify distant implementation details.
 The human owns highest-level direction and consequential unresolved tradeoffs.
 Investigate resolvable uncertainty; bring genuine decision gaps with options, evidence,
-and a recommendation. Existing authorization persists; do not ask the human to manage routine handoffs.
+and a recommendation. For unresolved project purpose, scope, priorities, or domain meaning,
+use `grill-with-docs` when installed; otherwise ask one focused question at a time and record
+the human's decision. The agent may reason about intent but cannot choose the user's goals
+on their behalf. Resume dependent work once that decision is sufficiently clear; independent
+work can continue. Existing authorization persists; do not reopen settled choices or ask the
+human to manage routine handoffs.
 
 ## Establish coherence before hardening
 
@@ -135,7 +140,9 @@ status so the human can see the goal, sequence, each assignment's purpose, model
 context usage, dependencies, and status. Explain what is happening and why at planning,
 dispatch, blockers, changed decisions, verification, integration, and handoff; provide
 periodic updates during long work. Expose concise rationale and evidence, never private
-chain of thought. Do not drown the manager or human in every child tool call.
+chain of thought. Do not drown the manager or human in every child tool call. If an explanation does not land,
+restate its context, action, and purpose plainly; honor an explicit `wait-what` invocation
+when that skill is installed.
 
 ## Terminology, explanation, and ambiguity
 

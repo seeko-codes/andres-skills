@@ -1,31 +1,11 @@
-# Interface Design for Testability
+# Interface design for testability
 
-Good interfaces make testing natural:
+Choose interfaces from the behavior and replacement boundary. Make relevant external
+inputs controllable through parameters or dependency injection when needed for a reliable
+check. Pure calculations can return values; stateful behavior and external effects remain
+valid when required by the contract.
 
-1. **Accept dependencies, don't create them**
-
-   ```typescript
-   // Testable
-   function processOrder(order, paymentGateway) {}
-
-   // Hard to test
-   function processOrder(order) {
-     const gateway = new StripeGateway();
-   }
-   ```
-
-2. **Return results, don't produce side effects**
-
-   ```typescript
-   // Testable
-   function calculateDiscount(cart): Discount {}
-
-   // Hard to test
-   function applyDiscount(cart): void {
-     cart.total -= discount;
-   }
-   ```
-
-3. **Small surface area**
-   - Fewer methods = fewer tests needed
-   - Fewer params = simpler test setup
+Keep the interface understandable and implementation choices private. Fewer methods or
+parameters are not goals by themselves: do not hide required behavior or introduce a new
+abstraction merely to reduce a count. Testability should support the design, not replace
+its requirements.

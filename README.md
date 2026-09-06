@@ -21,6 +21,10 @@ mkdir -p ~/.claude/skills
 cp -R andres-skills/skills/* ~/.claude/skills/
 ```
 
+The legacy `diagnose` skill has been removed. If you previously installed it, remove only
+that old installed folder after checking for your own edits; copying this version will not
+remove it automatically.
+
 The copy command installs the full collection for Claude Code. For one project, use that
 repo's `.claude/skills/` instead. Back up any same-named local skills before copying,
 because this overwrites matching files. It does not remove obsolete files from an older
@@ -31,8 +35,8 @@ directory supported by your runner. Model IDs, effort settings, and dispatch con
 resolved from the active session, not copied from my machine.
 
 Install `orchestrator`, `model-strategy`, and `lean-quality` together. The other skills can
-be used independently. Optional references to `curious` and `unslop` do not require those
-skills; the bundled instructions include the fallback procedure.
+be used independently. `grill-with-docs` supports human decisions; `wait-what` supports
+clearer explanations.
 
 ## The skills
 
@@ -41,9 +45,8 @@ skills; the bundled instructions include the fallback procedure.
 | [orchestrator](skills/orchestrator/SKILL.md) | Split a large goal into focused jobs, keep track of progress, and check the pieces work together. |
 | [model-strategy](skills/model-strategy/SKILL.md) | Choose a suitable model and propose how much reasoning effort each helper needs. You approve the effort. |
 | [lean-quality](skills/lean-quality/SKILL.md) | Once the arrangement makes sense, strengthen the implementation with checks for behavior, mistakes, and integration. |
-| [tdd](skills/tdd/SKILL.md) | When you explicitly request `/tdd`, build one behavior at a time: first a failing check, then working code, then cleanup. |
-| [grill-with-docs](skills/grill-with-docs/SKILL.md) | Examine a plan one question at a time and record important decisions and shared meanings. |
-| [diagnose](skills/diagnose/SKILL.md) | Reproduce a bug, narrow down its cause, fix it, and add a check to catch it if it returns. |
+| [tdd](skills/tdd/SKILL.md) | When you request test-driven development or `/tdd`, build one behavior at a time: first a failing check, then working code, then cleanup. |
+| [grill-with-docs](skills/grill-with-docs/SKILL.md) | Keep project direction in your hands: clarify goals and tradeoffs one question at a time, then record your decisions. |
 | [wait-what](skills/wait-what/SKILL.md) | When you request `/wait-what`, explain the previous answer again with enough background to follow it. |
 
 `wait-what` is by [Matt Pocock](skills/wait-what/NOTICE.md), preserved verbatim with its
@@ -51,7 +54,9 @@ skills; the bundled instructions include the fallback procedure.
 
 ## How work moves forward
 
-1. **Understand the whole goal.** Agree on the result and what would count as success.
+1. **Understand the whole goal.** You own the purpose, priorities, and consequential tradeoffs.
+   Use `grill-with-docs` when those need discussion: the agent investigates and recommends,
+   you decide. Record the result and what would count as success.
 2. **Check the arrangement.** Explore alternatives with small experiments. Investigate the
    assumption most likely to make later work unnecessary or wrong. Preserve existing protections.
 3. **Give each helper a complete, focused job.** Include the relevant requirements, files,
@@ -61,7 +66,9 @@ skills; the bundled instructions include the fallback procedure.
    Repeated back-and-forth between helpers is a reason to reconsider the split.
 5. **Strengthen the chosen implementation.** Once responsibilities and connections make sense,
    apply lean-quality to the code being kept. Check existing behavior; use test-driven
-   development for new behavior and fixes. For a screen, try its interactions and inspect screenshots.
+   development for new behavior and fixes. Choose checks for the actual risk and project
+   requirements; there is no mandatory tool stack for every edit. For a screen, try its
+   interactions and inspect screenshots.
 6. **Check the whole result.** A helper finishing does not mean the feature works. The manager
    combines the pieces, checks the agreed outcome, and updates the next batch.
 
@@ -115,16 +122,13 @@ it resolves the uncertainty. References help ground decisions but cannot guarant
 Browse the shelves for [orchestration](skills/orchestrator/REFERENCES.md),
 [model selection](skills/model-strategy/REFERENCES.md), [quality checks](skills/lean-quality/REFERENCES.md),
 [test-driven development](skills/tdd/REFERENCES.md), [planning and decisions](skills/grill-with-docs/REFERENCES.md),
-[debugging](skills/diagnose/REFERENCES.md), and [clear explanations](skills/wait-what/REFERENCES.md).
+and [clear explanations](skills/wait-what/REFERENCES.md).
 Each entry says which question it answers and where its advice stops applying.
 
 ## What is different from my local setup
 
 - No private project paths, installed profile roster, or machine-specific model IDs.
 - Native dispatch adapters rather than a required vendor's agent runner.
-- Optional inquiry and writing skills have an inline fallback.
-- The public diagnostic script retains its interactive-terminal guard. A human runs it
-  in their own terminal and pastes the captured output back.
 - Existing third-party files and notices stay intact.
 
 Local skill changes are reviewed before publication. A newer local file is not

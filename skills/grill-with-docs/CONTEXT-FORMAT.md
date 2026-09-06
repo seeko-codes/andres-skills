@@ -38,13 +38,13 @@ _Avoid_: Client, buyer, account
 
 ## Rules
 
-- **Be opinionated.** When multiple words exist for the same concept, pick the best one and list the others as aliases to avoid.
-- **Flag conflicts explicitly.** If a term is used ambiguously, call it out in "Flagged ambiguities" with a clear resolution.
-- **Keep definitions tight.** One sentence max. Define what it IS, not what it does.
+- **Use agreed terms.** Propose a precise term when meanings conflict; record the human-confirmed meaning and useful aliases.
+- **Flag conflicts explicitly.** Record an unresolved ambiguity as open until its meaning is agreed; then record the resolution.
+- **Keep definitions concise.** Include the distinctions needed to avoid ambiguity; do not sacrifice meaning to a sentence limit.
 - **Show relationships.** Use bold term names and express cardinality where obvious.
 - **Only include terms specific to this project's context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
 - **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
-- **Write an example dialogue.** A conversation between a dev and a domain expert that demonstrates how the terms interact naturally and clarifies boundaries between related concepts.
+- **Add an example when useful.** Use a short scenario when it clarifies a boundary the definition alone does not.
 
 ## Single vs multi-context repos
 

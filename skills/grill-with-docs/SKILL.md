@@ -1,17 +1,26 @@
 ---
 name: grill-with-docs
-description: Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.
+description: Clarify human-owned project intent, scope, domain meaning, and consequential tradeoffs through one-question-at-a-time discussion. Use for unresolved project direction or an explicit plan review; record settled decisions in project docs.
 ---
 
-<what-to-do>
+## Human-owned direction
 
-Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+Use this interview when the project's purpose, scope, priorities, domain meaning, or
+consequential tradeoffs need clarification. The human owns those decisions. The agent
+can model the intent, investigate feasibility, challenge assumptions, and recommend options;
+it must not substitute its preferred goal for an unresolved human choice.
 
-Ask the questions one at a time, waiting for feedback on each question before continuing.
+Start breadth first: desired outcome, constraints, exclusions, and evidence of success.
+Then narrow to the decision that blocks useful progress, resolving prerequisites first.
+Ask one question at a time with context, options, tradeoffs, and a recommendation when
+supported. Wait for the human's answer to that question. Do not interview every imaginable
+branch or reopen decisions already settled unless new evidence puts them in doubt.
 
-If a question can be answered by exploring the codebase, explore the codebase instead.
-
-</what-to-do>
+Inspect the code or relevant sources for questions they can answer. Existing implementation
+is evidence of current behavior, not authority over the human's intended future behavior.
+Leave routine execution choices with the assigned agent. Once the current goal and
+acceptance are clear enough, return them and any unresolved dependencies to the orchestrator.
+Only work depending on an unanswered decision needs to wait.
 
 <supporting-info>
 
@@ -68,6 +77,13 @@ When domain relationships are being discussed, stress-test them with specific sc
 ### Cross-reference with code
 
 When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"
+
+### Record human decisions
+
+Record agreed purpose, scope, exclusions, and acceptance in the existing project plan or
+brief. Keep unresolved choices marked open; a proposed answer is not an accepted decision.
+Use ADRs for decisions that warrant their rationale being preserved, not as a prerequisite
+for recording the user’s goal. Respect existing documentation locations.
 
 ### Update CONTEXT.md inline
 

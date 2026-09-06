@@ -1,59 +1,11 @@
-# When to Mock
+# Test doubles and real boundaries
 
-Mock at **system boundaries** only:
+Prefer real collaborators when they are practical and deterministic. Use a fake, stub,
+spy, or mock to control a boundary relevant to the test, such as network responses,
+time, randomness, or a costly dependency. Avoid mocks that merely reproduce internal
+implementation structure and break whenever that structure changes.
 
-- External APIs (payment, email, etc.)
-- Databases (sometimes - prefer test DB)
-- Time/randomness
-- File system (sometimes)
-
-Don't mock:
-
-- Your own classes/modules
-- Internal collaborators
-- Anything you control
-
-## Designing for Mockability
-
-At system boundaries, design interfaces that are easy to mock:
-
-**1. Use dependency injection**
-
-Pass external dependencies in rather than creating them internally:
-
-```typescript
-// Easy to mock
-function processPayment(order, paymentClient) {
-  return paymentClient.charge(order.total);
-}
-
-// Hard to mock
-function processPayment(order) {
-  const client = new StripeClient(process.env.STRIPE_KEY);
-  return client.charge(order.total);
-}
-```
-
-**2. Prefer SDK-style interfaces over generic fetchers**
-
-Create specific functions for each external operation instead of one generic function with conditional logic:
-
-```typescript
-// GOOD: Each function is independently mockable
-const api = {
-  getUser: (id) => fetch(`/users/${id}`),
-  getOrders: (userId) => fetch(`/users/${userId}/orders`),
-  createOrder: (data) => fetch('/orders', { method: 'POST', body: data }),
-};
-
-// BAD: Mocking requires conditional logic inside the mock
-const api = {
-  fetch: (endpoint, options) => fetch(endpoint, options),
-};
-```
-
-The SDK approach means:
-- Each mock returns one specific shape
-- No conditional logic in test setup
-- Easier to see which endpoints a test exercises
-- Type safety per endpoint
+Introduce injection where it makes the required behavior controllable; do not require a
+new abstraction around every call. Assert interactions when the interaction itself is part
+of the contract. Separately check relevant real integration: a passing mock-based test
+establishes behavior under its assumptions, not that the external system satisfies them.

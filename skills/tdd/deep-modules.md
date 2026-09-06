@@ -1,33 +1,12 @@
-# Deep Modules
+# Deep modules
 
-From "A Philosophy of Software Design":
+Ousterhout’s deep-module principle favors an interface that is simple to understand while
+hiding substantial useful implementation complexity. It is about the abstraction the caller
+must understand, not maximizing lines of code behind the fewest possible methods.
 
-**Deep module** = small interface + lots of implementation
+For a vertical slice, keep decisions that change together behind its contract. Other slices
+should not need those internal choices. Preserve a boundary that makes the implementation
+easy to replace; combine components only when their coupling justifies it. A thin adapter
+can still be useful when it isolates an external dependency.
 
-```
-┌─────────────────────┐
-│   Small Interface   │  ← Few methods, simple params
-├─────────────────────┤
-│                     │
-│                     │
-│  Deep Implementation│  ← Complex logic hidden
-│                     │
-│                     │
-└─────────────────────┘
-```
-
-**Shallow module** = large interface + little implementation (avoid)
-
-```
-┌─────────────────────────────────┐
-│       Large Interface           │  ← Many methods, complex params
-├─────────────────────────────────┤
-│  Thin Implementation            │  ← Just passes through
-└─────────────────────────────────┘
-```
-
-When designing interfaces, ask:
-
-- Can I reduce the number of methods?
-- Can I simplify the parameters?
-- Can I hide more complexity inside?
+See the author’s source in [REFERENCES.md](REFERENCES.md) if the design principle is unclear.
