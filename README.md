@@ -4,12 +4,19 @@ A curated set of agent skills from my daily setup. Each skill is a Markdown inst
 file, sometimes with supporting references or a helper script. This repo is a portable
 selection, not a backup of my local agent configuration.
 
-The central idea is to give each agent a clear job and just the information it needs.
-A capable manager keeps track of the whole goal. A small team handles focused pieces,
-working at the same time when those pieces do not depend on each other.
+The problem is not just producing more code. It is making each addition understandable
+without forcing the next agent to reconstruct the entire project.
 
-The instructions use established technical terms so agents can apply methods precisely.
-This README explains the logic without requiring you to know those terms first.
+Build from **problem → solution logic → concrete responsibilities → implementation detail**.
+Preserve that reusable understanding in the repository. Then give each piece of work a
+clear owner, sufficient context, and evidence that its result solves the intended problem.
+Small work stays local; larger work can use focused, independently verifiable assignments.
+
+This README is the entry point. [The logic of the collection](LOGIC.md) explains the full
+reasoning, why the skills stay separate, how they exchange information, and what would
+show that the approach works. It is optional background, not an instruction to preload
+all the skills. The procedures use established technical terms; the explanations supply
+the context needed to understand them.
 
 ## Install
 
@@ -36,13 +43,15 @@ resolved from the active session, not copied from my machine.
 
 Install `orchestrator`, `model-strategy`, and `lean-quality` together. The other skills can
 be used independently. `grill-with-docs` supports human decisions; `wait-what` supports
-clearer explanations.
+clearer explanations. `context-architecture` is an optional companion for constructing the
+project's reusable problem-solving structure; orchestration still works without it.
 
 ## The skills
 
 | Skill | What it helps you do |
 |---|---|
 | [orchestrator](skills/orchestrator/SKILL.md) | Split a large goal into focused jobs, keep track of progress, and check the pieces work together. |
+| [context-architecture](skills/context-architecture/SKILL.md) | Build code from the problem outward, preserving the relationships that help agents reach relevant implementation without reading everything. |
 | [model-strategy](skills/model-strategy/SKILL.md) | Choose a suitable model and propose how much reasoning effort each helper needs. You approve the effort. |
 | [lean-quality](skills/lean-quality/SKILL.md) | Once the arrangement makes sense, strengthen the implementation with checks for behavior, mistakes, and integration. |
 | [tdd](skills/tdd/SKILL.md) | When you request test-driven development or `/tdd`, build one behavior at a time: first a failing check, then working code, then cleanup. |
@@ -51,6 +60,20 @@ clearer explanations.
 
 `wait-what` is by [Matt Pocock](skills/wait-what/NOTICE.md), preserved verbatim with its
 [MIT license](skills/wait-what/LICENSE). Its new reference shelf is a collection-maintained supplement.
+
+## How the architecture and delivery skills fit
+
+Context architecture builds the reusable map of the solution: why responsibilities exist,
+how they relate, and where their implementation lives. The orchestrator turns a relevant
+part of that map into a bounded piece of work and checks the result. New evidence returns
+to the map through its owner, rather than creating competing explanations in each worker.
+
+The human still owns direction, model-strategy owns capability and effort choices, and
+lean-quality owns verification of retained implementation. A small action score helps
+choose whether to inspect, ask, experiment, or implement; it does not override these owners,
+context limits, or required checks. Modules are not automatically agent assignments.
+See the [workflow contract](skills/context-architecture/WORKFLOW.md) for precise boundaries
+and examples. Load it when those boundaries matter, not as a universal startup package.
 
 ## How work moves forward
 
@@ -122,6 +145,7 @@ it resolves the uncertainty. References help ground decisions but cannot guarant
 Browse the shelves for [orchestration](skills/orchestrator/REFERENCES.md),
 [model selection](skills/model-strategy/REFERENCES.md), [quality checks](skills/lean-quality/REFERENCES.md),
 [test-driven development](skills/tdd/REFERENCES.md), [planning and decisions](skills/grill-with-docs/REFERENCES.md),
+[context architecture](skills/context-architecture/REFERENCES.md),
 and [clear explanations](skills/wait-what/REFERENCES.md).
 Each entry says which question it answers and where its advice stops applying.
 

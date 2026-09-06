@@ -10,6 +10,11 @@ context together. Prefer fewer, smarter, autonomous agents with meaningful owner
 The manager holds the global picture and compiles it into locally complete assignments;
 workers need depth on their contracts, not the entire project history.
 
+The durable project model explains how the software fits together; this skill compiles
+its relevant relationships into temporary assignments and integrates their evidence back
+into the project. Keep these lifetimes separate so a new task need not reconstruct the
+whole repository, and a repository module need not become a permanent agent assignment.
+
 ## Manager and configuration
 
 Use the smartest available model at the highest supported reasoning effort for the manager.
@@ -44,6 +49,16 @@ the human's decision. The agent may reason about intent but cannot choose the us
 on their behalf. Resume dependent work once that decision is sufficiently clear; independent
 work can continue. Existing authorization persists; do not reopen settled choices or ask the
 human to manage routine handoffs.
+
+## Use reusable architecture when structure is at issue
+
+When building or revising project responsibilities, interfaces, or navigation, use
+[context-architecture](../context-architecture/SKILL.md) when available. It owns the reusable
+problem-solving backbone; this skill owns stages, work slicing, resources, and integration.
+Use its relevant relationships and locators to form locally complete contracts, not one
+agent per module. Keep small work local and existing approvals intact. When a boundary is
+unclear, consult its [workflow contract](../context-architecture/WORKFLOW.md); do not preload
+unrelated dependencies. If unavailable, use existing project architecture evidence.
 
 ## Establish coherence before hardening
 

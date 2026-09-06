@@ -5,6 +5,11 @@ description: Harden a coherent implementation with proportionate behavior, integ
 
 # Lean quality
 
+A coherent explanation of the solution is not evidence that the implementation works.
+Receive the agreed behavior, interfaces, and risks; return verification evidence and
+remaining limitations. Architecture-routing checks can supplement this evidence, not
+replace it. Use the current stage; coordinate any structural failure through its owner.
+
 ## Choose the stage
 
 Explore while responsibilities, interfaces, or user flow remain uncertain. Use the smallest

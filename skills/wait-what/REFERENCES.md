@@ -15,6 +15,11 @@ definition, practitioner account, and empirical result have different evidential
 
 This companion reference shelf is collection-maintained; the upstream SKILL.md remains verbatim.
 
+Within this collection, the skill supports the human's ability to understand and direct
+work. An explicit request to explain again calls for repairing the explanation, not silently
+changing the architecture, approved scope, or delivery plan. The clarified explanation can
+reveal a genuine decision gap, which then belongs to the established human-decision process.
+
 | Unresolved question | Source | Scope and limits |
 |---|---|---|
 | What is ASD-STE100? | [ASD-STE100 official site](https://www.asd-ste100.org/) | Standard owner’s site and access information. Simplifying a reply does not establish formal compliance with the full standard. |

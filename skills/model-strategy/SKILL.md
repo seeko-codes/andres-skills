@@ -9,6 +9,11 @@ The orchestrator decides scope, delegation, and context. This skill selects suff
 model capability and effort for each assignment. Prefer fewer capable agents holding
 cohesive problems; additional weak agents do not repair a poorly cut contract.
 
+Receive the bounded contract, remaining uncertainty, consequences, and verification plan;
+return a supported capability recommendation and the human-approved effort selection.
+Context architecture can make information easier to reach, but it does not eliminate the
+reasoning needed to use it. Its cheap action score never replaces this allocation process.
+
 ## Managers
 
 The core orchestrator and optional Wayfinder use the smartest available general model

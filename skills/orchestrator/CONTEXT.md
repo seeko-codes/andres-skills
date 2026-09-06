@@ -11,6 +11,10 @@ whole repository or inherit full conversation history merely for convenience. Es
 when retrieval reveals a changed scope, shared decision, or dependency. A researcher may
 need broad sources for a narrow question; relevance, not directory size alone, determines its corpus.
 
+Routing-cost or context-waste estimates from context architecture evaluate unnecessary
+reading and model maintenance. They are not occupancy telemetry, do not change these
+limits, and cannot authorize more context growth after a breach.
+
 ## Budget accounting
 
 `max_context_per_agent` defaults to 100000 tokens and is user-configurable. Apply it to

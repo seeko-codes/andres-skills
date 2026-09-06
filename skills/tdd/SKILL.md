@@ -5,6 +5,11 @@ description: Apply test-driven development when explicitly requested, including 
 
 # Test-driven development
 
+This skill makes behavioral expectations answerable to executable evidence, one change
+at a time. Receive the agreed contract and explicit method request; return test-first
+implementation evidence within the current delivery stage. The tests constrain behavior,
+not the repository model's preferred explanation or folder layout.
+
 Use this method within the user's agreed scope. Reuse established requirements and approvals;
 ask only about unresolved intent, consequential interface choices, or missing acceptance.
 Do not turn routine test selection into another approval round. Subagent effort decisions

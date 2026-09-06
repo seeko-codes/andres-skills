@@ -5,6 +5,10 @@ description: Clarify human-owned project intent, scope, domain meaning, and cons
 
 ## Human-owned direction
 
+This skill resolves missing human decisions, not missing implementation facts. Receive
+the current intent, evidence, and consequential ambiguity; return a recorded decision
+that architecture and orchestration can reuse instead of repeatedly asking the same question.
+
 Use this interview when the project's purpose, scope, priorities, domain meaning, or
 consequential tradeoffs need clarification. The human owns those decisions. The agent
 can model the intent, investigate feasibility, challenge assumptions, and recommend options;

@@ -9,12 +9,12 @@ and only the matching task guidance when preparing the brief.
 | DELIVERABLE | Exact output and its necessary contribution to the horizontal goal |
 | STAGE | Exploration or hardening, why, and evidence needed to exit the stage |
 | CONTRACT | Experiment/question in exploration; settled requirements/interfaces in hardening; constraints in both |
-| INPUTS | Required sources with read scope and purpose; relevant dependency outputs; optional lookup locators labeled with the question that would trigger retrieval |
+| INPUTS | Required sources with read scope and purpose; relevant backbone relationships/contracts and dependency outputs; optional lookup locators labeled with the question that would trigger retrieval. Distinguish tentative explanations from requirements |
 | AUTHORITY | Local choices the agent owns; cross-slice decisions it must escalate |
 | BOUNDS | Exact write-set, isolation path, applicable local instructions; no delegation |
 | ACCEPTANCE | Checks and evidence needed to accept the result |
 | RESOURCES | Actual model/effort, human effort choice or covering policy and its scope, context ceiling, warning level, monitoring availability |
-| REPORT | Output locations, check results, consequential rationale, deviations and gaps |
+| REPORT | Output locations, check results, consequential rationale, deviations and gaps; observed shared-relationship mismatches with evidence and proposed owner updates when relevant |
 
 Work-alone instruction: Do the assigned work directly. Do not spawn agents or launch
 another agent CLI. Ask the manager to re-slice when the contract cannot be fulfilled
@@ -25,6 +25,11 @@ Research assignments name the question, how its answer affects the plan, and evi
 needed; hypotheses are optional and must not bias findings. Exploration assignments commission bounded experiments; hardening assignments establish
 shared requirements while preserving local implementation autonomy. Review assignments
 name the target, relevant requirements, risk, and requested independent verdict.
+
+For structural changes, include relevant routing checks in ACCEPTANCE alongside functional
+checks. The manager adjudicates shared-model revisions and assigns their update to the owner;
+workers preserve write boundaries. Supply the relevant backbone, not the entire architecture
+skill or its theory shelf, when a worker only needs an established local contract.
 
 Acceptance instruments must suit the task and stage. Read [stages.md](doctrine/stages.md)
 for the coherence gate and prototype-to-hardening transition. Do not impose fake failing

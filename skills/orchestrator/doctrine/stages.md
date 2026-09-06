@@ -4,6 +4,10 @@ Breadth-first planning determines what belongs together and what depends on what
 experiments can go deep enough to resolve a structural uncertainty. Hardening is a later
 quality stage, not a competing search algorithm. Use the stage appropriate to each bounded scope.
 
+Information-gathering and implementation are actions, not stage labels. Either may occur
+within either stage. A context-architecture action score cannot replace the coherence gate
+or required checks; a local uncertainty does not automatically reopen the whole project.
+
 ## Exploration
 
 After mapping the goal broadly, test the unresolved assumption most likely to invalidate
