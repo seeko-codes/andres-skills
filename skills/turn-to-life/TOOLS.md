@@ -88,7 +88,8 @@ Retain useful capabilities and revisit material forecasts when relevant work sup
 Combine or simplify overlapping tools when their contracts allow it. Remove obsolete tooling
 within ownership after checking callers, dependencies, discovery, and replacements/fallbacks.
 Preserve user and uncommitted work: versioned deletion only when the actual content is
-recoverable; otherwise use a repo-local inactive archive. Update affected routes and verify
+recoverable; otherwise use a repo-local inactive archive. Follow [GIT.md](GIT.md) for scoped
+commits and recovery; do not force-add ignored/private artifacts. Update affected routes and verify
 remaining consumers. Do not silently remove a required capability before a replacement or
 explicit fallback is available. No periodic toolkit audit is required without a task need.
 

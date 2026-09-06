@@ -19,6 +19,8 @@ do not install a background monitor or add capabilities to the runner.
 Prefer managed worktrees for writing agents. Otherwise create and verify separate worktrees
 and put absolute paths in briefs. Shared cwd is not isolation. If work is necessarily a
 local gitignored artifact, explicitly bound its separate staging path and ownership.
+Apply [GIT.md](GIT.md) to branch/index ownership and integration; a shared cwd exception
+for artifact work never authorizes concurrent mutations of one Git index or branch.
 Track run completion through native controls, then inspect outputs and verification evidence.
 A status label or report file alone does not establish success.
 

@@ -126,6 +126,10 @@ Project methods can evolve after installation; there is no requirement to retain
 ## What stays in your control
 
 Project instructions, scope, data protections, and required checks remain in force.
+The core [Git protocol](skills/turn-to-life/GIT.md) protects existing work, preserves coherent
+local commits, and verifies integration. Pushing, releasing, and deploying need their own
+scoped authorization; a clean tree or commit is not proof of a correct solution.
+
 Helpers require your approval of reasoning effort, or an existing approval covering the work.
 Manager policy prefers maximum available capability/effort; unsupported settings are reported,
 not silently changed. These are [operating policies](skills/model-strategy/SKILL.md), not efficacy claims.

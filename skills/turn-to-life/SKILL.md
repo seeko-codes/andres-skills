@@ -25,6 +25,11 @@ Otherwise ask one focused question with evidence and consequences; do not outsou
 available in the project. Elicit the governing principle, not merely an implementation vote.
 Separate human decisions from factual assertions and your own inferences.
 
+Before repository edits or Git state changes, read [GIT.md](GIT.md). It owns baseline
+inspection, user-work preservation, isolation, coherent local commits, integration/recovery,
+and publication boundaries—even when working alone. Follow project policy; do not confuse
+permission to edit or commit with permission to push, release, or deploy.
+
 ## 2. Establish enough structure for the next detail
 
 Work from **problem → solution logic → responsibilities/contracts → implementation**.
@@ -86,7 +91,8 @@ Correct the explanation, code, or assignment according to the observed mismatch;
 changed intent to the human. Preserve verified relationships and consequential evidence in
 authoritative existing project artifacts, within ownership—not another transcript or glossary.
 
-Finish with the result, evidence, material limits, and any unresolved decision. If blocked,
+Finish with the result, evidence, relevant commit/artifact locations, local versus published
+state, material limits, and any unresolved decision. If blocked,
 preserve progress and report the gap rather than claim completion. On an explicit request
 to explain again, use [wait-what](../wait-what/SKILL.md) if available, or explain context,
 action, and purpose plainly. Report meaningful progress without exposing private reasoning.

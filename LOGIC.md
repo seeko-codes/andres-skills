@@ -59,6 +59,23 @@ and an efficient process can fail independently. Test each where the task puts i
 one cannot stand in for the others. A useful abstraction earns its place through the
 distinctions it preserves, not its name or resemblance to a theory.
 
+## Git makes change inspectable and recoverable
+
+Fallible experiments and durable project knowledge need a record of what changed and a
+way to recover useful prior work. Git supplies concrete versions and change boundaries;
+tests and review supply evidence about those versions. Neither substitutes for the other.
+This applies to code, skills, tools, and project explanations—not only delegated coding.
+
+The [Git protocol](skills/turn-to-life/GIT.md) is part of Turn to Life's core execution:
+establish ownership, isolate when needed, preserve coherent local increments, verify their
+composition, and publish only under scoped authority. Baseline inspection protects work the
+agent did not create; explicit publication boundaries protect against unintended disclosure
+or deployment. A dirty tree may contain legitimate user work, and a clean commit may contain
+a bad solution. Optimize for recoverable, verified progress, not superficial cleanliness.
+
+This is a chosen implementation of those commitments, not an ICS prescription or a claim
+that all projects must adopt Git. Existing version-control and delivery policy still governs.
+
 ## One action-and-correction loop
 
 **Agreed purpose → revisable model → consequential gap or next step → scoped action

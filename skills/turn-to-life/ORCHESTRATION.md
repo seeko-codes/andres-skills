@@ -89,7 +89,8 @@ Follow the matching [research](doctrine/decode.md), [execution](doctrine/execute
 
 Verify individual contracts, then integrate accepted outputs and verify their composition.
 Risk and uncertainty determine independent review needs. Matching expectations is not
-verification. A clean commit records completion; it does not prove correctness.
+verification. Follow [GIT.md](GIT.md) for commits, integration, recovery, and publication;
+a local checkpoint is not acceptance evidence or authorization to publish.
 Update coverage and dependencies, close completed runs, and remove only reviewed, safely
 integrated temporary work. Preserve unfinished work and user changes.
 Finish when the integrated result satisfies H, not when all agents merely report success.
