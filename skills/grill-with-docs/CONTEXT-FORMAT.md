@@ -1,4 +1,8 @@
-# CONTEXT.md Format
+# Domain glossary format
+
+Use the existing authoritative glossary and its format first. `CONTEXT.md` is a fallback
+name, not a required file or an inference about domain boundaries. The examples below are
+illustrative; do not overwrite an architecture/routing document with domain definitions.
 
 ## Structure
 
@@ -48,9 +52,9 @@ _Avoid_: Client, buyer, account
 
 ## Single vs multi-context repos
 
-**Single context (most repos):** One `CONTEXT.md` at the repo root.
+**One cohesive domain context:** a single glossary may suffice; a root `CONTEXT.md` is one possible location.
 
-**Multiple contexts:** A `CONTEXT-MAP.md` at the repo root lists the contexts, where they live, and how they relate to each other:
+**Multiple domain contexts:** use an existing map or equivalent documentation of their boundaries and relationships. A root `CONTEXT-MAP.md` is one possible representation:
 
 ```md
 # Context Map
@@ -68,10 +72,8 @@ _Avoid_: Client, buyer, account
 - **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
 ```
 
-The skill infers which structure applies:
-
-- If `CONTEXT-MAP.md` exists, read it to find contexts
-- If only a root `CONTEXT.md` exists, single context
-- If neither exists, create a root `CONTEXT.md` lazily when the first term is resolved
-
-When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+Determine the applicable structure from domain meaning, documented boundaries, and
+project evidence, not presence or absence of these filenames. Read an existing map for its
+actual purpose. When several contexts exist, locate the one relevant to the question; ask
+only if consequential ownership or meaning remains unclear. Create a new record lazily
+only when no authoritative equivalent exists, using a non-conflicting project location.

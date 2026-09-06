@@ -1,13 +1,14 @@
 ---
 name: grill-with-docs
-description: Clarify human-owned project intent, scope, domain meaning, and consequential tradeoffs through one-question-at-a-time discussion. Use for unresolved project direction or an explicit plan review; record settled decisions in project docs.
+description: Clarify human-owned intent, domain meaning, and consequential tradeoffs through principle-driven, one-question-at-a-time discussion. Use for unresolved project direction, consequential domain-knowledge gaps, or an explicit plan review; record decisions and evidence in existing project docs.
 ---
 
 ## Human-owned direction
 
-This skill resolves missing human decisions, not missing implementation facts. Receive
-the current intent, evidence, and consequential ambiguity; return a recorded decision
-that architecture and orchestration can reuse instead of repeatedly asking the same question.
+This skill elicits human direction and domain understanding when these can resolve a
+consequential gap; it does not outsource implementation facts the agent can inspect.
+Receive intent, evidence, and ambiguity; return reusable principles, confirmed decisions,
+and factual claims with their source and uncertainty. Do not ask the same settled question again.
 
 Use this interview when the project's purpose, scope, priorities, domain meaning, or
 consequential tradeoffs need clarification. The human owns those decisions. The agent
@@ -28,47 +29,40 @@ Only work depending on an unanswered decision needs to wait.
 
 <supporting-info>
 
+## Ask for the governing relationship
+
+Choose the gap whose resolution could change the most consequential downstream work.
+Supply the concrete situation, known evidence, and competing consequences. Ask about the
+purpose, invariant, or tradeoff behind the choice rather than requesting an implementation
+vote. A direct factual question is still appropriate when that is the actual gap.
+
+For example, replace "Should we support offline mode?" with "When connectivity fails, what
+must the user still accomplish, and what consequence makes that essential?" Do not lead the
+answer or require abstract language. Help the human reason; do not make them redo the research.
+Probe a boundary case as a follow-up when it could change the principle's application.
+
+Separate what the answer establishes: a preference sets direction; a factual assertion is
+sourced evidence to assess; an architectural implication is an inference to test. Confirm
+consequential interpretations, not every paraphrase. A persuasive answer is not proof of
+behavior. Workers return shared questions through their manager, not a competing interview.
+
 ## Domain awareness
 
-During codebase exploration, also look for existing documentation:
+Locate authoritative domain language, context maps, and decision records using project
+routing instructions. Choose by purpose and contents, not filename alone. Reuse existing
+locations and formats; do not create a parallel glossary or mix routing with domain meaning.
 
-### File structure
-
-Most repos have a single context:
-
-```
-/
-├── CONTEXT.md
-├── docs/
-│   └── adr/
-│       ├── 0001-event-sourced-orders.md
-│       └── 0002-postgres-for-write-model.md
-└── src/
-```
-
-If a `CONTEXT-MAP.md` exists at the root, the repo has multiple contexts. The map points to where each one lives:
-
-```
-/
-├── CONTEXT-MAP.md
-├── docs/
-│   └── adr/                          ← system-wide decisions
-├── src/
-│   ├── ordering/
-│   │   ├── CONTEXT.md
-│   │   └── docs/adr/                 ← context-specific decisions
-│   └── billing/
-│       ├── CONTEXT.md
-│       └── docs/adr/
-```
-
-Create files lazily — only when you have something to write. If no `CONTEXT.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
+Only when no authoritative equivalent exists, create a minimal record lazily for the first
+resolved term or warranted decision. `CONTEXT.md`, `CONTEXT-MAP.md`, and `docs/adr/` are fallback
+conventions, not required topology. If a name already serves another purpose, choose a
+non-conflicting location consistent with the project. [CONTEXT-FORMAT.md](CONTEXT-FORMAT.md)
+supplies a default glossary and examples, not permission to relocate existing documentation.
 
 ## During the session
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
+When the user uses a term that conflicts with the authoritative domain glossary, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
 
 ### Sharpen fuzzy language
 
@@ -89,11 +83,12 @@ brief. Keep unresolved choices marked open; a proposed answer is not an accepted
 Use ADRs for decisions that warrant their rationale being preserved, not as a prerequisite
 for recording the user’s goal. Respect existing documentation locations.
 
-### Update CONTEXT.md inline
+### Update the authoritative glossary
 
-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up — capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
-
-Don't couple `CONTEXT.md` to implementation details. Only include terms that are meaningful to domain experts.
+Capture a resolved term in the established glossary while the decision is current, within
+write ownership. Follow its existing format; use [CONTEXT-FORMAT.md](CONTEXT-FORMAT.md) as a
+default only when needed. Keep domain meaning separate from implementation-routing detail.
+Workers report changes outside their ownership rather than writing shared records directly.
 
 ### Offer ADRs sparingly
 

@@ -9,6 +9,9 @@ A coherent explanation of the solution is not evidence that the implementation w
 Receive the agreed behavior, interfaces, and risks; return verification evidence and
 remaining limitations. Architecture-routing checks can supplement this evidence, not
 replace it. Use the current stage; coordinate any structural failure through its owner.
+When architecture evaluation is in scope, contribute implementation evidence to its
+three-part assessment (logic, implementation, process). A good score on one cannot
+compensate for an unmet required check on another; do not load another skill merely to score it.
 
 ## Choose the stage
 

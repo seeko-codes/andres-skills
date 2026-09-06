@@ -7,13 +7,13 @@ and only the matching task guidance when preparing the brief.
 | Field | Contents |
 |---|---|
 | DELIVERABLE | Exact output and its necessary contribution to the horizontal goal |
-| STAGE | Exploration or hardening, why, and evidence needed to exit the stage |
-| CONTRACT | Experiment/question in exploration; settled requirements/interfaces in hardening; constraints in both |
+| STAGE | For delivery work: exploration or hardening, why, and exit evidence. For standalone research/review: task type and completion evidence; no invented implementation stage |
+| CONTRACT | Experiment/question in exploration; settled requirements/interfaces in hardening; question or review target for standalone inquiry; constraints in all cases |
 | INPUTS | Required sources with read scope and purpose; relevant backbone relationships/contracts and dependency outputs; optional lookup locators labeled with the question that would trigger retrieval. Distinguish tentative explanations from requirements |
 | AUTHORITY | Local choices the agent owns; cross-slice decisions it must escalate |
 | BOUNDS | Exact write-set, isolation path, applicable local instructions; no delegation |
 | ACCEPTANCE | Checks and evidence needed to accept the result |
-| RESOURCES | Actual model/effort, human effort choice or covering policy and its scope, context ceiling, warning level, monitoring availability |
+| RESOURCES | Actual model/effort, human effort choice or covering policy and its scope, context ceiling, warning level, monitoring availability; resolved optimization priorities and remaining shared optional-refinement allowance when applicable |
 | REPORT | Output locations, check results, consequential rationale, deviations and gaps; observed shared-relationship mismatches with evidence and proposed owner updates when relevant |
 
 Work-alone instruction: Do the assigned work directly. Do not spawn agents or launch

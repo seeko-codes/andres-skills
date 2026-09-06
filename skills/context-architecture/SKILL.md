@@ -12,17 +12,17 @@ Build the repository as a revisable schema: **problem → solution logic → con
 - Static context is project material available through files: source code, Markdown, tests, configuration, and other artifacts. Dynamic context is supplied during the current conversation. Static does not mean immutable or automatically loaded.
 - Apply this method while constructing code, not merely by documenting finished code. For existing projects, preserve working behavior and revise only the affected structure unless broader restructuring is justified and authorized.
 - This skill owns reusable project structure, not delivery control. The orchestrator owns scope, stages, delegation, budgets, and integration; its dependencies retain their authority. Apply the [workflow contract](WORKFLOW.md) when connecting these responsibilities. A worker uses its assigned contract and does not restart orchestration.
-- Predictive processing and active inference motivate this engineering adaptation. The scores below are heuristics, not measured probabilities or a formal free-energy calculation. Improved agent performance must be checked, not assumed.
+- Predictive processing and active inference motivate this engineering adaptation. Free energy is not literal context size, elapsed time, or code complexity. Action comparisons are heuristics, not a formal probabilistic calculation. Improved agent performance must be checked, not assumed.
 
 ## 1. Establish the problem
 
-Use the agreed outcome, acceptance conditions, constraints, stage, and current scope from the existing plan or brief. Fill only actual gaps. Distinguish implementation facts from intended behavior; route unresolved human direction through the established decision owner in the workflow contract. Investigate implementation facts through the project.
+Use the agreed outcome, acceptance conditions, constraints, applicable delivery stage, and current scope from the existing plan or brief. Fill only actual gaps. Distinguish implementation facts from intended behavior; route unresolved human direction through the established decision owner in the workflow contract. Investigate implementation facts through the project; seek human domain knowledge when it is the better source for a consequential gap.
 
 Finish when the next bounded piece of work has a clear purpose and a way to judge its result. Reuse settled context rather than repeating discovery.
 
 ## 2. Form the solution backbone
 
-State the few relationships that explain how the solution achieves the outcome. Ask: Why is each responsibility necessary? How do the responsibilities depend on or constrain one another? Which assumptions remain uncertain?
+State the few relationships that explain how the solution achieves the outcome. Ask: Why is each responsibility necessary? How do the responsibilities depend on or constrain one another? Which assumptions remain uncertain? Distinguish required behavior, chosen policy, observed fact, and explanatory hypothesis where they imply different authority or checks.
 
 Use conditional explanations, not topic lists. “Selection consumes current learner evidence, which evaluation updates” provides more routing information than “selection, evaluation, progress.” These are working hypotheses, not immutable first principles.
 
@@ -49,18 +49,11 @@ Finish when a relevant responsibility can be located and interpreted without ope
 
 Use the current model to anticipate what an action will reveal or accomplish. Epistemic actions improve task-relevant understanding; pragmatic actions advance the solution. An action can do both in either delivery stage. These values do not replace the orchestrator's exploration/coherence/hardening gates. Reorganizing without discriminating evidence is not automatically useful exploration.
 
-When the next consequential action is unclear, compare a few candidates using:
+When the next consequential action is unclear, compare a few candidates by expected progress, information that could change the work, and total cost. Include context, time, human interruption, verification, and likely rework. Prefer a cheaper, reversible action when its contribution is comparable; do not optimize one agent's lifetime by shifting unfinished work elsewhere. Use the [evaluation guide](EVALUATION.md) only when designing an experiment or when an optional coarse score would clarify a real tradeoff.
 
-    Action value = expected progress + useful information − cost
+Approval, write ownership, context limits, and mandatory checks are gates, never score terms. Model-strategy owns capability and effort selection. Skip comparisons when the next step is clear; stop optional investigation when it is unlikely to change the work, without skipping required evidence or stage gates. Preserve and report unfinished work when completion is blocked.
 
-Score each term coarsely as 0, 1, or 2:
-- **Progress:** none / advances a necessary part / directly advances an acceptance condition.
-- **Useful information:** none / refines the current explanation / distinguishes explanations that imply different next actions.
-- **Cost:** small / moderate / large, considering context, time, human interruption, and likely rework.
-
-These are rough comparisons within the current contract, not calibrated quantities. Approval, write ownership, context limits, and mandatory checks are gates, never score terms. Model-strategy owns capability and effort selection. Break close ties with the cheaper, more reversible action. Skip scoring when the next step is clear; stop optional investigation when it is unlikely to change that next step, without skipping required evidence or stage gates.
-
-The human supplies both evidence and direction. Preserve their authority over desired outcomes and consequential tradeoffs. Workers route unresolved intent and shared decisions through the manager; do not start a competing human interview.
+Ask the human when their authority, experience, or reframing can resolve a consequential gap better than more inspection. Frame a concrete tension around the governing purpose or principle, not just an implementation vote. Use the existing human-decision skill or channel; workers route shared questions through the manager. A preference establishes direction, a factual assertion supplies evidence, and an architectural implication remains an inference to test.
 
 ## 5. Add detail through scoped work
 
@@ -72,23 +65,19 @@ Example: if progress disappears after reload, distinguish “not saved” from �
 
 ## 6. Correct the model as the project teaches you
 
-Compare important expectations with observations. Label unresolved claims as tentative, supported, or contradicted; use numbers only if they improve a real decision.
+Compare important expectations with observations. Label unresolved claims as tentative, supported, or contradicted; use numbers only if they improve a real decision. When observations fit none of the candidate explanations, revise the candidates rather than forcing a match.
 
 When a mismatch appears, distinguish an implementation defect, an inaccurate explanation of existing code, and unresolved or changed intent. Fix code against the agreed requirements, revise an inaccurate backbone, or return the intent decision to the human. Neither documentation nor implementation alone proves that the user's problem is solved.
+
+Tools and procedures are project context too. For a capability gap or obsolete tool, use the local [tool lifecycle](../turn-to-life/TOOLS.md) when available; otherwise apply the same scoped construction and verification principles. Judge sufficiency across current acceptance and credible future changes, including lifecycle cost. A replaceable boundary may earn its place without a plugin framework; keep authored tools repo-local.
 
 Update the working map within write ownership. Persist conclusions and evidence in existing project artifacts, not another competing glossary or plan. Workers report shared relationship changes with locators; the manager adjudicates them, assigns updates to their owner, and verifies affected contracts. Preserve completed work. Keep references aligned with moves and consolidate the accepted model at integration.
 
 ## 7. Verify that the architecture earns its cost
 
-Use actual tasks to check that the backbone identifies the target, necessary supporting context, and defensible exclusions. For substantial structural changes, include an unfamiliar or cross-cutting task not used to write the routing explanation. Verify the task outcome; plausible routing is not sufficient evidence.
+Check solution logic, implementation, and process economy separately where affected. For substantial structural changes, use the [evaluation guide](EVALUATION.md): include an unfamiliar or cross-cutting task not used to write the explanation, verify the outcome, and compare resource use at the same quality bar. An abstraction should preserve a necessary distinction; a short explanation or implementation alone does not establish elegance.
 
-At meaningful checkpoints, estimate:
-
-    Context waste ≈ unnecessary material read / total material read
-
-Include orientation, summaries, and detours. Rough read counts ignore size differences; use size estimates when those differences matter. Judge necessity against verified task evidence. This routing-cost proxy is not live context occupancy; budget accounting and recovery remain governed by orchestrator/CONTEXT.md.
-
-Compare similar tasks and include model-maintenance cost. Reduced reading with missed dependencies is failure. Supply routing-check evidence through existing acceptance/report fields; it supplements, never replaces, behavior, integration, or project-required checks. Retain useful structure and simplify overhead within scope. Report material revisions and uncertainty, not a bookkeeping transcript.
+Supply relevant evidence through existing acceptance/report fields, not a second testing process. Routing checks supplement behavior, integration, and project-required checks. Distinguish peak context, total processing, and elapsed time; occupancy and recovery remain governed by the orchestrator or applicable local policy. Include failed attempts, handoffs, rework, and model maintenance. Retain useful structure and simplify overhead within scope; report material revisions and uncertainty, not a bookkeeping transcript.
 
 ## Sources on demand
 

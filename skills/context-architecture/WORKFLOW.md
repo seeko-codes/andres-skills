@@ -6,11 +6,11 @@ Build software that satisfies the human's problem while reducing unnecessary con
 
 | Concern | Owner | Context architecture contributes |
 |---|---|---|
-| Project purpose, approved scope, priorities, consequential tradeoffs | Human; [grill-with-docs](../grill-with-docs/SKILL.md) facilitates | Identifies missing decisions and their structural consequences; reuses recorded answers |
+| Project purpose, approved scope, priorities, consequential tradeoffs | Human; [grill-with-docs](../grill-with-docs/SKILL.md) facilitates | Surfaces high-leverage questions and reusable principles; distinguishes decisions, human-supplied evidence, and inferred consequences |
 | Reusable problem/logic/concept/detail relationships | [Context architecture](SKILL.md) | Meaningful responsibilities, contracts, locators, uncertainty, and routing checks |
-| Stage, assignment boundaries, ownership, delegation, integration | [Orchestrator](../orchestrator/SKILL.md) | Relevant backbone and dependency evidence, not a second execution plan |
-| Context ceilings, occupancy, and recovery | [Orchestrator context rules](../orchestrator/CONTEXT.md) | Estimates avoidable reading and maintenance cost, not occupancy telemetry |
-| Model capability and effort | [Model-strategy](../model-strategy/SKILL.md) recommends; the human approves effort | Explains remaining uncertainty and verifier strength; its action score does not select resources |
+| Stage, assignment boundaries, ownership, delegation, integration | [Orchestrator](../turn-to-life/SKILL.md) | Relevant backbone and dependency evidence, not a second execution plan |
+| Context ceilings, occupancy, and recovery | [Orchestrator context rules](../turn-to-life/CONTEXT.md) | Estimates avoidable reading and maintenance cost, not occupancy telemetry |
+| Model capability and effort | [Model-strategy](../model-strategy/SKILL.md) recommends; the human approves effort | Explains remaining uncertainty and verifier strength; action comparisons do not select resources |
 | Verification of retained implementation | [Lean-quality](../lean-quality/SKILL.md) | Adds routing and structural acceptance checks alongside behavior/integration checks |
 | Explicit test-driven-development method | [TDD](../tdd/SKILL.md) | Supplies behavioral contracts, not tests coupled to the chosen folder layout |
 
@@ -24,21 +24,26 @@ not require installing or loading the whole collection.
 
 Use the project's existing plan, architecture notes, glossary, and contracts. Keep each fact authoritative in one place; scoped excerpts may carry necessary context into a brief with a source locator. Do not place implementation-routing detail in a glossary reserved for domain meaning.
 
-1. The orchestrator supplies the agreed goal, stage, acceptance, boundaries, and current decisions. With no orchestrator present, work locally using applicable project policy; do not create a delegation process merely to use this skill.
+1. The orchestrator supplies the agreed goal, applicable delivery stage or inquiry type, acceptance, boundaries, and current decisions. With no orchestrator present, work locally using applicable project policy; do not create a delegation process merely to use this skill.
 2. Context architecture supplies the relevant backbone: responsibilities, contracts, dependency directions, actual locators, and consequential unresolved assumptions. Keep the whole project purpose visible without loading every branch.
 3. The orchestrator uses that evidence to make assignments. A durable module is not automatically one temporary work slice, and a folder is never an automatic agent allocation. Resolve shared decisions before dependent concurrent work.
 4. Workers retrieve and reason within their contracts. Local implementation choices remain theirs. Unexpected shared dependencies, changed scope, or ownership conflicts go to the manager with evidence; they do not authorize broader edits, more workers, or a second human interview.
 5. The manager verifies results and cross-slice implications, assigns shared-model updates to their owner, and integrates accepted changes before relying on the revised model for dependent work.
 
-Use existing [brief fields](../orchestrator/BRIEFS.md): CONTRACT for relevant established interfaces and constraints; INPUTS for scoped backbone sources and optional locators; AUTHORITY/BOUNDS for decision and write ownership; ACCEPTANCE for routing checks where relevant; REPORT for observed mismatches, model revisions, and verification. Tentative explanatory hypotheses must remain distinguishable from binding requirements.
+Use existing [brief fields](../turn-to-life/BRIEFS.md): CONTRACT for relevant established interfaces and constraints; INPUTS for scoped backbone sources and optional locators; AUTHORITY/BOUNDS for decision and write ownership; ACCEPTANCE for routing checks where relevant; REPORT for observed mismatches, model revisions, and verification. Tentative explanatory hypotheses must remain distinguishable from binding requirements.
+
+The [evaluation guide](EVALUATION.md) supplies conditional checks for solution logic,
+implementation structure, and process economy. Use the existing quality owner for behavioral
+verification and orchestration for resource accounting; this is not a new review authority.
+Human knowledge can inform the model, but only authorized direction changes the goal.
 
 ## Stage compatibility
 
 An epistemic action gains useful evidence; a pragmatic action advances preferred outcomes. These are action values, not delivery stages. A prototype can do both; a targeted investigation can happen during hardening without reopening the entire project.
 
-Follow the orchestrator's [coherence gate](../orchestrator/doctrine/stages.md). Prediction agreement alone does not establish coherence or correctness. When evidence invalidates a structural assumption, return only the affected scope to exploration through its owner. Preserve valid implementation and settled requirements.
+Follow the orchestrator's [coherence gate](../turn-to-life/doctrine/stages.md). Prediction agreement alone does not establish coherence or correctness. When evidence invalidates a structural assumption, return only the affected scope to exploration through its owner. Preserve valid implementation and settled requirements.
 
-The cheap action score chooses among permitted next moves within current scope, resources, and stage. It cannot skip mandatory checks, reinterpret a context breach as worth the cost, change effort, expand write ownership, or declare a prototype production-ready.
+Action comparisons choose among permitted next moves within current scope, resources, and applicable stage. They cannot skip mandatory checks, reinterpret a context breach as worth the cost, change effort, expand write ownership, or declare a prototype production-ready. Standalone research/review uses its own question and completion evidence, not a forced exploration/hardening label.
 
 ## Compatibility checks
 

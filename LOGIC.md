@@ -1,184 +1,219 @@
-# The logic of the collection
+# The logic of Turn to Life
 
-This is the repository-wide explanation, not another execution checklist. Read it when
-understanding or changing how the skills fit together. For a specific task, start with
-the relevant skill in the [README](README.md#the-skills); do not preload this document.
+This is the optional rationale for constructing and changing the collection, not another
+execution checklist. Start with [Turn to Life](skills/turn-to-life/SKILL.md); the
+[README](README.md#one-entrypoint-focused-supporting-methods) routes its supporting methods.
+The baseline below is explicit and testable, not an immutable theory of software development.
 
-## The shared problem
+## Purpose and starting commitments
 
-We want agents to solve human problems through software without each new feature forcing
-the next agent to reconstruct the whole project. Correct software is the outcome;
-context-efficient understanding is one means of reaching and maintaining it.
+**Solve the human's problem with a sound, economical implementation, while leaving behind
+the understanding that makes subsequent work easier.** Context efficiency serves that goal;
+minimum reading, minimum code, or minimum agent lifetime is not the goal by itself.
 
-Two kinds of structure help with different parts of that problem:
+The system starts from five commitments. These are declared premises, not neuroscience theorems:
 
-- **Reusable project structure:** the responsibilities, contracts, relationships, and
-  locators that explain the software across tasks and sessions.
-- **Temporary work structure:** the current goal, assignments, owners, evidence, and
-  integration sequence needed to deliver one change.
+| Premise | Status | What it rules out |
+|---|---|---|
+| The human owns desired outcomes and consequential tradeoffs | Authority commitment | Quietly changing the goal to make it easier to satisfy |
+| The agent's understanding and observations can be incomplete or wrong | Operating assumption | Treating confidence, an explanation, or an existing implementation as proof |
+| Acquiring, processing, and maintaining context consumes limited resources | Resource constraint | Unbounded reading or bookkeeping that does not improve the work |
+| Project relationships can remain useful across changes and sessions | Workload assumption | Making every new task reconstruct useful knowledge from scratch |
+| Completion requires evidence against the agreed outcome | Acceptance commitment | Optimizing apparent success by weakening checks or ignoring failures |
 
-The first belongs to context architecture. The second belongs to orchestration. Combining
-them into one large skill would couple a durable model of the project to every temporary
-execution choice. Separating them without a shared contract would produce well-organized
-files and workers that still lack the relationships necessary to use them.
+These premises motivate the design below; they do not uniquely entail seven skills, a
+particular directory layout, two delivery stages, or any numeric default. Those are chosen
+implementations or operating policies. Whether this arrangement improves agents is an
+empirical hypothesis. Distinguish a requirement, an observation, a tentative explanation,
+and a policy when the distinction changes a decision.
 
-The collection connects them through existing project artifacts and scoped briefs.
+## Derive the backbone before organizing details
 
-## Build understanding before adding detail
+**Purpose determines relevance.** A detail matters because it changes how the agreed
+problem is solved, checked, or maintained. More information is not automatically better.
 
-The construction order is **problem → solution logic → concepts → details**:
+**Incomplete understanding requires correction.** Before committing to a consequential
+choice, identify the gap that could change it. Inspect, ask, experiment, or implement
+according to what can resolve that gap or advance the outcome. Sometimes spending more
+context now prevents much more rework later.
 
-1. The problem supplies purpose, constraints, and observable success.
-2. The logic explains why the solution's main responsibilities are necessary and how they interact.
-3. Concepts make those relationships concrete as responsibilities and interfaces.
-4. Implementation details realize those responsibilities in code, tests, configuration, and other files.
+**Relationships make detail interpretable.** Build from
+**problem → solution logic → concepts/responsibilities → implementation detail**.
+Explain why a responsibility exists, what it depends on, and what it guarantees; then give
+its implementation a meaningful home and interface. Establish enough structure for the
+next useful detail, not an exhaustive upfront design. Experiments may revise the backbone.
 
-This is an order of understanding, not four required directories or a demand for a complete
-upfront design. Begin with enough structure for the next useful detail; let implementation
-and experiments expose where the structure needs correction. A processing sequence can
-explain behavior without dictating module boundaries. Good boundaries also consider what
-changes together and which internal decisions callers should not need to understand.
+The resulting model should help predict a task's **target**, necessary **support**, and
+defensible **exclusions**. A processing sequence is not automatically a module decomposition;
+boundaries also depend on which decisions change together and what callers need to know.
+Relationships may cross branches. These are levels of understanding, not four required folders.
 
-The intended payoff is specific: for an unfamiliar task, the backbone helps an agent
-predict the relevant responsibility, its necessary supporting relationships, and the
-implementation detail that can remain unopened. Names and locators connect that reasoning
-to actual code. A hierarchy that merely labels topics does not establish this benefit.
+**Different lifetimes motivate separate responsibilities.** Code, contracts, and durable
+explanations form the reusable project model. Assignments, temporary owners, and execution
+sequences organize a particular change. Context architecture maintains the former;
+orchestration organizes the latter. They exchange relevant evidence through existing
+artifacts and briefs, not competing project narratives. A module is not an agent assignment.
 
-For example, an app chooses practice from current learner evidence. Evaluation updates
-that evidence. If practice ignores a new answer, these relationships suggest inspecting
-selection and evidence updates, not every screen. That route remains a hypothesis; an
-unexpected dependency can require inspecting another branch.
+**Different claims require different evidence.** A sound explanation, a working implementation,
+and an efficient process can fail independently. Test each where the task puts it at risk;
+one cannot stand in for the others. A useful abstraction earns its place through the
+distinctions it preserves, not its name or resemblance to a theory.
 
-See [context architecture](skills/context-architecture/SKILL.md) for the construction method.
+## One action-and-correction loop
 
-## How each skill earns its place
+**Agreed purpose → revisable model → consequential gap or next step → scoped action
+→ observation → verification and correction → reusable understanding.**
 
-These boundaries are chosen by the decision each skill owns, not by a desire for more skills.
-The human owns project purpose and consequential tradeoffs throughout.
+The repository is the persistent part of the model, not the complete agent. The full loop
+also includes the agent's current beliefs, tools, implementation, environment, and human.
+Static context means project files available for retrieval; it is neither immutable nor
+automatically preloaded. Dynamic context is supplied during the current conversation.
 
-| Skill | Why it exists | Receives | Returns | Does not own |
-|---|---|---|---|---|
-| [grill-with-docs](skills/grill-with-docs/SKILL.md) | More code cannot resolve an unmade human decision | Current goals, evidence, and a consequential ambiguity | A recorded human decision and remaining uncertainty | The human's desired outcome or routine implementation choices |
-| [context-architecture](skills/context-architecture/SKILL.md) | More files should not require more unrelated reading | Agreed purpose and evidence about the project | A revisable backbone, meaningful boundaries, locators, and routing evidence | Dispatch, effort approval, or delivery-stage gates |
-| [orchestrator](skills/orchestrator/SKILL.md) | Large work needs bounded responsibility and verified integration | Agreed outcome and relevant project relationships | Contracts, ready batches when useful, integrated results, and accepted model revisions | The human's goals or another skill's verification method |
-| [model-strategy](skills/model-strategy/SKILL.md) | A narrow context does not make difficult judgment easy | A bounded contract, remaining uncertainty, consequences, and verifier strength | A supported capability recommendation and human-approved effort selection | Scope, extra workers, or silent effort changes |
-| [lean-quality](skills/lean-quality/SKILL.md) | A plausible implementation is not evidence of correctness | Coherent behavior, interfaces, acceptance, and concrete risks | Scoped verification and explicit remaining limitations | Product intent or proof that every possible defect is absent |
-| [tdd](skills/tdd/SKILL.md) | Test-first development needs a tight behavioral feedback loop | Agreed behavior and an explicit request for the method | Failing-then-passing evidence and refactored implementation | The project's delivery stage or unrelated testing mandates |
-| [wait-what](skills/wait-what/SKILL.md) | An explanation the human cannot follow cannot support informed direction | An explicit request to explain again | A clearer account with the missing background | Redesigning the project or silently changing its decisions |
+An action may advance the solution, reveal useful information, or do both. Compare likely
+progress, decision-relevant information, and total cost only when the next move is unclear.
+No mandatory numerical score or complete probability model is required. Prefer a cheaper,
+reversible action when its expected contribution is comparable. Do not equate raw novelty
+with useful information or a confirmatory result with an adequate test.
 
-The dedicated TDD skill has an explicit trigger. Separately, lean-quality already calls
-for red-green-refactor for new behavior and fixes during applicable hardening. Explaining
-these roles does not create or remove a testing requirement. Higher-priority instructions
-and explicit user direction still govern.
+For example, when progress disappears after reload, distinguish "not saved" from "not
+restored." Inspecting persisted state may separate those explanations without reading every
+screen. Repair the evidenced fault, test the affected behavior, and correct the durable
+relationship if it was inaccurate. Neither this example nor its two hypotheses is exhaustive.
 
-`wait-what` is a verbatim third-party skill. Its collection role is explained here and in
-its [collection-maintained companion](skills/wait-what/REFERENCES.md), not by rewriting
-its upstream instructions. Its [notice](skills/wait-what/NOTICE.md) and license remain intact.
+Correction follows the kind of mismatch:
 
-## One loop, not a mandatory procession through every skill
+- **Explanation wrong:** update the project model against evidence through its authorized owner.
+- **Implementation wrong:** repair against the agreed behavior and verify the result.
+- **Assignment or dependency wrong:** the orchestrator revises the affected work and integration.
+- **Intent unresolved or changed:** the human decides; do not silently reinterpret acceptance.
 
-The central relationship is:
+Persist the useful conclusion, evidence locator, and consequential uncertainty, not the entire
+reasoning transcript. A small known change needs no new architecture, interview, or delegation.
+Finish when the agreed scope and required checks are satisfied. Stop optional investigation
+when it is unlikely to change the work. If a budget or capability blocks completion, preserve
+progress and report or hand off the gap; premature termination is not efficient success.
 
-**Human intent → project backbone → scoped work → observed results → revised backbone.**
+## The human is a source of principles, not just approvals
 
-A small, well-understood change may stay with one agent and use an existing backbone.
-Nothing requires launching helpers, assigning scores, rewriting architecture, or reopening
-human decisions just because those capabilities exist.
+Ask the human when their authority, domain experience, or ability to reframe the problem
+can resolve a consequential gap better than more project inspection. Do not outsource
+facts available in the code or routine execution decisions. A good question exposes the
+governing relationship for a family of decisions, rather than merely requesting one option.
 
-When work is larger, the orchestrator determines which deliverables can be owned and
-verified independently. The project model informs this decision but does not dictate one
-agent per module. A durable module and a temporary assignment have different boundaries.
-Shared decisions must be resolved before dependent work runs concurrently.
+Instead of "Should we support offline mode?", ask "When connectivity fails, what must the
+user still accomplish, and what consequence makes that essential?" Supply the concrete
+situation and relevant evidence; do not lead the human toward the agent's preferred answer.
+Follow up with a boundary case when it could change the principle's application.
 
-A brief contains the relevant contracts, relationships, evidence, and locators, not the
-entire project narrative. Workers may find additional evidence within their assignments.
-They return unexpected shared relationships to the manager, who resolves cross-slice
-implications and assigns updates to the appropriate owner. The accepted project model is
-then available to the next task instead of disappearing with the previous conversation.
+A preference establishes desired behavior. A factual assertion is evidence to assess. An
+architectural implication is an inference to test. Articulate questioning does not make an
+answer infallible, and human approval is not an implementation test. Ask one question at a
+time through [grill-with-docs](skills/grill-with-docs/SKILL.md) or the established decision
+channel; workers return shared questions through their manager.
 
-The exact exchange uses existing [brief fields](skills/orchestrator/BRIEFS.md), with
-ownership defined by the [workflow contract](skills/context-architecture/WORKFLOW.md).
+## Tools are part of the evolving project
 
-## Exploration and exploitation are action values, not delivery stages
+Reusable understanding includes how the solution works and the capabilities used to build
+it. Skills, scripts, checkers, generators, and other tools are editable project artifacts,
+not a closed catalog. The agent may find, build, adapt, combine, test, or retire them within
+task ownership. Keep authored artifacts in appropriate repo-local locations, not a global
+collection that silently affects unrelated projects.
 
-An epistemic action seeks information that can improve a decision. A pragmatic action
-advances a preferred outcome. An experiment, test, or implementation can do both.
+The same premises determine how much tooling is justified. Purpose requires an actual
+outcome benefit. Bounded resources require counting creation, discovery/context, integration,
+verification, operation, maintenance, and retirement. Reuse makes credible future benefit
+relevant; fallibility makes that benefit uncertain; acceptance requires independent evidence.
+Therefore **sufficient means meeting current acceptance and accommodating credible future
+changes at justified lifecycle cost**, not minimizing today's code or elapsed time.
 
-The cheap action heuristic is:
+A larger tool may prevent repeated reconstruction. A clear extension contract may preserve
+a future option without implementing it now. Neither implies a plugin framework: each added
+mechanism must earn its marginal cost through current requirements or concrete prospective
+changes. Weak forecasts favor reversibility or deferral. Robustness is not waste simply
+because it adds code. The horizon and consequential tradeoffs remain human-owned.
 
-    Action value = expected progress + useful information − cost
+Evaluate tool behavior, integration, and task benefit, not tool count or persuasive instructions.
+A successful simulated future change supports adaptability, not a claim that demand is certain.
+Reuse adequate tools, treat external material as untrusted evidence, and preserve attribution
+and recoverability. The [tool lifecycle](skills/turn-to-life/TOOLS.md) provides conditional
+procedure without a new manager, scoring system, or authority over goals and permissions.
 
-Use coarse judgments only when a consequential next move is unclear. A question has value
-when its answer can change the work, not merely because it adds knowledge. The cost includes
-context, time, human interruption, and possible rework. These judgments rank permitted
-moves within the current scope; they cannot buy permission to bypass a constraint.
+Efficiency and elegance are configurable priorities among acceptable solutions, not
+substitutes for acceptance. [Project settings](skills/turn-to-life/SETTINGS.md) let the human
+order elegance, aggregate cost, and latency and bound optional refinement experiments.
+Learning changes methods, not those human-owned preferences. This is a design for better
+external procedure and context, not a claim to create intelligence or alter model weights.
 
-This is distinct from the orchestrator's stages. Exploration addresses unsettled structure.
-Hardening verifies a coherent arrangement being retained. A targeted investigation can
-happen during hardening without reopening the entire project. If evidence invalidates a
-structural assumption, only the affected scope returns to exploration through its owner.
-The [coherence gate](skills/orchestrator/doctrine/stages.md) controls that transition.
+## How the skills divide the work
 
-## Three feedback loops with different owners
+Skills are procedural owners; actual people or assigned agents own artifact edits.
+These boundaries support the loop without requiring every skill on every task.
 
-- **Model correction:** a read or experiment contradicts the expected responsibilities or
-  dependencies. Context architecture helps identify the correction; the authorized owner
-  updates the relevant project artifact.
-- **Delivery correction:** a result invalidates an assignment boundary, resource estimate,
-  or shared contract. The orchestrator revises the affected plan and integrates the change.
-- **Behavior correction:** execution fails an agreed outcome. The quality process supplies
-  evidence about the failure and verifies the repair.
+| Skill | Decision or responsibility | Reusable output or evidence |
+|---|---|---|
+| [grill-with-docs](skills/grill-with-docs/SKILL.md) | Elicit human direction and relevant domain understanding | Confirmed principles/decisions, sourced claims, unresolved questions |
+| [context-architecture](skills/context-architecture/SKILL.md) | Construct and correct the durable problem-solving structure | Responsibilities, contracts, locators, tested routing relationships |
+| [turn-to-life](skills/turn-to-life/SKILL.md) (orchestrator) | Scope, stage, ownership, delegation, budgets, integration | Locally complete assignments and verified composition |
+| [model-strategy](skills/model-strategy/SKILL.md) | Recommend capability and obtain effort approval | Supported configuration and scoped human authorization |
+| [lean-quality](skills/lean-quality/SKILL.md) | Verify retained implementation against concrete risks | Behavior/integration evidence and limitations |
+| [tdd](skills/tdd/SKILL.md) | Supply the explicitly requested test-first method | Failing-then-passing behavioral evidence and refactored code |
+| [wait-what](skills/wait-what/SKILL.md) | Repair an explanation on explicit request | Understanding sufficient for informed human direction |
 
-These loops inform one another, but their evidence is not interchangeable. A good routing
-prediction does not prove correct behavior. A passing test does not prove the human's
-intention was understood. An orderly assignment board does not prove integration works.
+Information-seeking and implementation are action types, not delivery stages. The
+orchestrator's [coherence gate](skills/turn-to-life/doctrine/stages.md) determines whether
+an implementation scope is exploratory or ready for hardening. A standalone inquiry or
+review needs a question and completion evidence, not an invented implementation stage.
+The dedicated TDD trigger remains explicit; lean-quality separately requires
+red-green-refactor for new behavior and fixes during applicable hardening.
 
-## Keep optimization subordinate to correctness and human control
+The [workflow contract](skills/context-architecture/WORKFLOW.md) specifies the exchange
+through existing [brief fields](skills/turn-to-life/BRIEFS.md). Context ceilings, effort
+approval, write ownership, and mandatory checks remain gates. Action value cannot bypass
+them. Maximum manager effort and budget defaults are operating policies, not deductions
+from the goal. Existing authorization carries forward within its scope.
 
-A small action score cannot choose weaker models behind the human's back. Capability and
-effort decisions follow [model-strategy](skills/model-strategy/SKILL.md), including the
-scope of the human's approval. Manager maximum-effort settings are an operating policy,
-not a claim of universal benchmark superiority.
+## Evidence and economy
 
-Likewise, a low estimate of wasted reading does not imply that a context window is safe.
-[Context accounting](skills/orchestrator/CONTEXT.md) tracks occupancy, reserves completion
-headroom, and specifies warning and recovery behavior. Unknown telemetry remains unknown;
-cumulative billing and file counts are not substitutes for it.
+Judge three properties separately:
 
-The human supplies both evidence about a situation and decisions about desired outcomes.
-An agent can inspect what the software does; it cannot infer that existing behavior must
-therefore be what the human wants. Clarify consequential direction through the established
-owner instead of creating a second interview inside each worker.
+1. **Solution logic:** does the backbone make discriminating predictions that survive
+   unfamiliar cases, and do its abstractions preserve necessary distinctions?
+2. **Implementation:** does the software satisfy agreed behavior and affected contracts;
+   can a representative change preserve those contracts without unnecessary coupling?
+3. **Process:** at comparable quality, does the method reduce total resource use and rework,
+   including the cost of maintaining its model?
 
-## Apply the same architecture to this repository
+Use the conditional [evaluation guide](skills/context-architecture/EVALUATION.md) to design
+these checks. Finite tests can reject particular elegance claims; they do not prove a
+globally simplest design. Here elegance means minimal sufficient structure, with no
+identified unnecessary distinction, dependency, or procedure at the agreed quality bar.
 
-- **README:** a short entry point explaining the outcome, available skills, and how to start.
-- **This document:** the optional whole-collection rationale and relationships.
-- **Each SKILL.md:** a concrete responsibility, its procedure, and completion criteria.
-- **Supporting documents:** conditional contracts, stage rules, runtime adapters, and techniques.
-- **Reference shelves:** evidence for a specific unresolved question, not required startup reading.
+Track elapsed time, total processing, and peak context separately. Include failed attempts,
+handoffs, verification, and rework; shorter individual sessions are not inherently better.
+Compare representative tasks against a simpler baseline, including unfamiliar/cross-cutting
+cases. Keep acceptance stable during comparison. Unknown telemetry remains unknown;
+[occupancy rules](skills/turn-to-life/CONTEXT.md) still govern live context safety.
 
-Root documentation explains the collection but is not an installation dependency. A copied
-skill carries its local instructions and supporting files; cooperating skills use documented
-sibling contracts when available. A user need not distribute this root document to execute them.
+## Theory and detail stay in their proper roles
 
-Explanations live at the level where they change a decision. We preserve one authoritative
-rule instead of copying it into every skill. Scoped excerpts in briefs are intentional views,
-with locators back to their source, not independent competing policies.
+Predictive processing and active inference motivate model correction and informative action.
+Variational free energy concerns probabilistic inference; expected free energy concerns
+policy evaluation under a specified model and preferences. Neither means literal tokens,
+code size, elapsed time, or electricity. Our resource goals are engineering choices. An
+informal action comparison is not a formal free-energy calculation. The
+[reference shelf](skills/context-architecture/REFERENCES.md) supplies definitions and limits;
+it does not prove this repository design works or make its procedures inevitable.
 
-## What would show that this works
+The construction vocabulary draws on ICS-inspired layering and inquiry; this application
+to software agents is a proposed transfer, not an ICS-authored software method. Installing
+Markdown does not change model weights, create telemetry, or guarantee adherence.
 
-Evaluate matched tasks for correct completion, missing dependencies, unnecessary reading,
-rework, and the cost of maintaining the model. Include unfamiliar or cross-cutting tasks,
-not just examples used to write the explanation. Better results must survive contact with
-actual task evidence; fewer reads alone are insufficient.
+Apply the same economy here: **README routes; LOGIC explains why; SKILL.md owns procedure;
+supporting files supply conditional detail; reference shelves address concrete source questions.**
+Root documents are not copied-install dependencies. Preserve authoritative procedures with
+short scoped views or explicit standalone fallbacks, rather than repeating full rule sets.
+Reuse existing project artifacts by meaning, not prescribed filenames. Keep third-party
+[wait-what instructions and notices](skills/wait-what/NOTICE.md) intact.
 
-The [predictive-processing and active-inference references](skills/context-architecture/REFERENCES.md)
-motivate the proposed mechanism. They do not establish that this repository layout improves
-coding agents. The action scores and context-budget defaults are operational heuristics or
-policies, not constants derived from neuroscience. Installing Markdown does not change model
-weights, add unavailable runtime controls, or guarantee adherence.
-
-The intended result is a project whose accumulated structure makes future work easier to
-understand and perform. Whether it does so is a question for measured use, not a benefit
-we declare merely because the filing system looks like a schema.
+Refine details when evidence exposes a gap. Revisit a premise when evidence or authorized
+direction changes it. Do not add a new rule merely to protect the current explanation.
