@@ -38,8 +38,8 @@ skills; the bundled instructions include the fallback procedure.
 |---|---|---|
 | [orchestrator](skills/orchestrator/SKILL.md) | Manages horizontal goals through focused autonomous agents and dependency-ordered batches | Context-heavy work or independent slices where delegation pays |
 | [model-strategy](skills/model-strategy/SKILL.md) | Maps task risk and verifiability to available models and effort settings | After deciding to delegate, before launching a child |
-| [lean-quality](skills/lean-quality/SKILL.md) | Red-green-refactor, property checks, strict types, dead-code checks, and verification before committing | Writing or changing production code within established requirements and interfaces |
-| [tdd](skills/tdd/SKILL.md) | Behavior-first vertical slices with references on tests, interfaces, mocking, and refactoring | Explicit `/tdd` requests; automatic implementation work uses `lean-quality` |
+| [lean-quality](skills/lean-quality/SKILL.md) | Hardens coherent implementations through TDD, static and behavior checks, integration, and visual verification | Settled implementation or prototype promotion; defer during arrangement exploration |
+| [tdd](skills/tdd/SKILL.md) | Behavior-first vertical slices with references on tests, interfaces, mocking, and refactoring | Explicit `/tdd` requests; automatic hardening uses `lean-quality` after coherence |
 | [grill-with-docs](skills/grill-with-docs/SKILL.md) | Challenges a plan one question at a time and records surviving terminology and decisions | Stress-testing a plan against project docs |
 | [diagnose](skills/diagnose/SKILL.md) | Reproduce, minimise, hypothesise, instrument, fix, and regression-test | Bugs where guessing has not worked |
 | [wait-what](skills/wait-what/SKILL.md) | Re-explains an answer with context and the project's vocabulary | Explicit `/wait-what` requests only |
@@ -53,7 +53,7 @@ skills; the bundled instructions include the fallback procedure.
 grill-with-docs       Challenge the plan and record decisions.
 orchestrator          Decide what stays local and what can delegate.
   model-strategy      Select available capability and effort for each child.
-  lean-quality        Build settled changes test-first.
+  lean-quality        Harden a coherent scope; test-first for new behavior and fixes.
 diagnose              Establish a reproduction before fixing a bug.
 tdd                   Optional, explicitly requested TDD reference.
 wait-what             Ask for a clearer explanation.
@@ -81,6 +81,13 @@ those capabilities. Human-readable status explains actions, purpose, dependencie
 See [Wayfinder](skills/orchestrator/WAYFINDER.md),
 [context accounting](skills/orchestrator/CONTEXT.md), and
 [model validation](skills/model-strategy/EVIDENCE.md) for the conditional details.
+
+Explore uncertain arrangements with bounded prototypes first. Record evidence of coherent
+responsibilities, exercised seams, and agreed acceptance before applying lean-quality to retained
+code. Existing prototype characterization is post-hoc evidence; TDD applies to new behavior and
+fixes. UI verification combines interactions and inspected screenshots. See the
+[stage transition](skills/orchestrator/doctrine/stages.md). Quality hardening precedes production
+completion, while distant batches can remain exploratory.
 
 ## What is different from my local setup
 

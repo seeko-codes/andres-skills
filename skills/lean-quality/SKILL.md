@@ -1,19 +1,38 @@
 ---
 name: lean-quality
-description: "THE single skill for executing an idea into code — use automatically EVERY time production code is written or modified: implementing a feature, fixing a bug, TDD, red-green-refactor, test-first work, or deciding what tests a change needs. Supersedes all other TDD/testing skills for automatic use (they load only by explicit name). The execution-stage discipline for turning a decided idea into verified code: TDD (red-green-refactor, three laws) as the spine; density instruments on top (property invariants, strict typing, dead-code scan, mutation score as meter); construction principles (injectable seams, determinism, fail-fast errors); never commit on red; QA-finds-nothing as the bar."
+description: "Harden a coherent implementation with TDD, behavior and property checks, static analysis, integration evidence, and visual verification where relevant. Use automatically for settled implementation and prototype promotion, or on explicit request. Defer during uncertain architecture, arrangement experiments, and exploratory prototypes."
 ---
 
 # lean-quality — executing an idea into verified code
 
-Scope: the EXECUTION stage. Requirements, shared interfaces, and acceptance are established. The worker owns local
-implementation choices within that contract. Escalate unresolved requirements or changes
-that affect another slice; do not stop for routine local design choices. This skill governs
-implementation quality, while the orchestrator owns cross-slice decisions. Passing checks
-is evidence, not proof that the specification itself is correct.
+## Activation: coherence before hardening
+
+This is the HARDENING stage. Do not automatically run this skill during early exploration
+of architecture, feature arrangement, or user flow. During exploration use focused experiments
+and baseline checks sufficient to trust the findings; preserve project protections. Explicit
+user requests for lean-quality or TDD still apply.
+
+Enter when the selected scope has coherent responsibilities and interfaces, exercised critical
+seams, agreed behavior and acceptance, and no unresolved structural question likely to invalidate
+its implementation. This need not wait for the entire project. An already understood bug fix
+or settled feature can enter directly. Workers retain local implementation autonomy; escalate
+cross-slice changes. If structural uncertainty reopens, return that scope to exploration.
+
+## Bringing a prototype into hardening
+
+Inventory retained code, shortcuts, and deferred checks. Keep, refactor, replace, or discard
+based on the agreed contract. Characterization tests for existing behavior may initially pass;
+report them as post-hoc tests, not TDD. Derive expected results from requirements rather than
+copying the prototype. Where useful, use a negative control or targeted mutation to check that
+a critical test can detect a relevant fault. Do not manufacture failures or delete working code
+to satisfy test-first history. Apply the cycle below to new behavior, gaps and fixes, then refactor
+retained code under verified checks. Full hardening and integrated acceptance precede production
+completion; an exploratory checkpoint is not a release-ready claim.
 
 ## The spine: test-driven development
 
-Everything in this skill is TDD or an extension of it. The core cycle:
+For new behavior and fixes, use the following cycle. Existing prototype characterization
+follows the explicit transition above:
 
 - **Red** — write the smallest test that fails for the right reason, and RUN it to
   see the failure. The three laws: (1) no production code except to pass a failing
@@ -26,11 +45,9 @@ Everything in this skill is TDD or an extension of it. The core cycle:
   revert freely. This is where duplication is removed, names are improved, and
   structure emerges. Skipping this step is how green code rots.
 
-Why the cycle is load-bearing, not ceremony: a test never seen red proves nothing
-(it may pass vacuously or assert the wrong thing); code written before its test is
-code whose testability was never checked; and running tests after every edit keeps
-the cause of any red nameable from the last edit alone — long gaps between runs
-turn a one-line diagnosis into an archaeology dig.
+Observing the intended failure helps establish that a new test detects the missing behavior.
+A passing post-hoc test can still supply evidence; its limits and fault sensitivity must be
+assessed honestly. Keep iterations small enough to diagnose failures and revise the design.
 
 **Test quality is code quality.** Tests are first-class code held to FIRST:
 Fast (milliseconds — a slow suite stops being run, and an unrun suite is no suite),
@@ -81,9 +98,8 @@ checks — at a different altitude:
 - **Design seams for injection.** Every external effect — subprocess, network,
   clock, randomness, filesystem-as-environment — sits behind an injectable callable
   or interface, with the real implementation as a thin default. This is not test
-  ceremony; it is the property that makes TDD physically possible. Law for the test
-  suite: no real subprocess, no network, no wall clock, no sleep — injected fakes
-  only.
+  ceremony; it is the property that makes TDD physically possible. Keep unit tests deterministic with injected fakes. Separately exercise relevant
+  real seams with controlled integration and smoke tests.
 - **Determinism by construction.** Core logic never reads the clock or a random
   source directly; time and randomness enter as parameters. This is what makes
   tests Repeatable and runs replayable.
@@ -108,7 +124,8 @@ checks — at a different altitude:
 
 ## The execution loop, end to end
 
-1. **Pin red.** Failing check first, seen failing for the right reason.
+1. **Establish the check.** For new behavior/fixes, observe the intended failure first.
+   For retained prototype behavior, establish honest characterization coverage as described above.
 2. **Go green small.** Least code; run affected tests after every edit.
 3. **Refactor under green.** Boy-Scout the touched surface — cleaner than found,
    but scoped: never a drive-by rewrite of code the change doesn't own.
@@ -120,10 +137,13 @@ checks — at a different altitude:
    the tests fake, run the real thing once (smoke run, live invocation) before
    calling it done. "All tests green" on an unexercised seam is a statement about
    the fakes, not the code.
-6. **Report honestly.** Green with counts; failures with their output verbatim;
-   skipped steps named as skipped. The bar: a downstream QA pass finds NOTHING.
-   QA finding a bug is a process failure to learn from — identify the missing
-   check and add it — never a normal part of the workflow.
+6. **Inspect visual behavior when relevant.** For UI changes, exercise interactions and
+   capture/inspect screenshots at relevant states and viewports. Compare with requirements
+   and an approved reference if available. Screenshots do not replace behavioral, accessibility,
+   integration, or security checks appropriate to the change.
+7. **Report honestly.** Green with counts, failures with evidence, skipped steps and remaining
+   limitations named. Learn from later defects by identifying the missing check. Passing this
+   process does not guarantee complete security or the absence of defects.
 
 ## Discipline that keeps the instruments trustworthy
 
@@ -149,18 +169,21 @@ checks — at a different altitude:
 
 ## Done-checklist for a code change
 
-- [ ] Every new check was seen RED before the code made it green
+- [ ] Selected scope passed the coherence gate; retained prototype shortcuts are resolved
+- [ ] New behavior/fix tests were seen RED before implementation; prototype characterization
+      is explicitly post-hoc and checked for relevant fault sensitivity
 - [ ] Invariants of the touched module stated and encoded as properties (or an
       explicit note why none apply)
 - [ ] Strict type-check clean on the touched surface
 - [ ] Dead-code scan clean (whitelist entries each carry a one-line reason)
 - [ ] Example tests for the property-resistant edges, asserting exact messages and
       every refusal-reason branch
-- [ ] Tests are FIRST: fast, isolated, repeatable, self-validating — no real
-      subprocess/network/clock/sleep anywhere in the suite
+- [ ] Unit tests are FIRST and deterministic; controlled integration tests cover relevant real seams
 - [ ] Full suite green and fast (bound property examples: modest max_examples, no
       wall-clock deadline) — run in full before the commit, not from memory
 - [ ] For refactor/annotation-only changes: mutation kill-count did not drop
 - [ ] Faked seams exercised once for real if the change touches them
+- [ ] For UI changes, relevant interactions and screenshots inspected; visual checks do not
+      substitute for behavior or other applicable acceptance criteria
 - [ ] Complete diff read line by line; one intent per commit; nothing unexplained
 - [ ] Committed only on green; failures and skipped steps reported verbatim

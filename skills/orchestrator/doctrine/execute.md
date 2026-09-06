@@ -1,15 +1,20 @@
-# Autonomous execution
+# Autonomous implementation by stage
 
-The contract fixes requirements, shared interfaces, ownership, and acceptance. Own the
-local implementation choices needed to fulfill it. Escalate when a change would affect
-another slice or requires an unsettled consequential decision; propose a concrete resolution.
+The brief states EXPLORATION or HARDENING. Read [stages.md](stages.md) when choosing or
+transitioning stages. If unspecified, infer from whether a consequential structural question
+remains and state the choice. Own local decisions; escalate changes affecting other slices.
 
-Stay inside the declared write-set and verified isolation path. Follow project quality rules
-and `lean-quality` when available. If it is absent, use proportionate behavior checks,
-reproductions for bugs, relevant type/build checks, and an integration or smoke check for
-changed external seams. Report unrun or unavailable checks honestly. Follow higher-priority
-user/runtime instructions when they differ from a companion skill.
+In exploration, the contract defines the experiment, question, boundaries, and evidence to
+return. Architecture may be provisional. Do not automatically load lean-quality. Use targeted
+checks and prototypes to compare arrangements; report findings and deferred quality work.
 
-Verify the result, inspect the diff, and leave a clean commit for tracked code or the named
-artifact for other surfaces. Preserve recoverable progress during manager-directed checkpoints.
-Report output locations, checks, significant local decisions, deviations, and unresolved issues.
+In hardening, requirements, shared interfaces and acceptance are established. Apply lean-quality
+when available. If absent, use proportionate behavior checks, bug reproductions, relevant
+static/build checks, and integration or smoke checks for changed seams. Use screenshots and
+real interactions for UI where relevant. Do not claim post-hoc prototype tests were test-first.
+
+Stay within write ownership and verified isolation. Respect project rules and higher-priority
+user/runtime instructions in both stages. Inspect the diff and preserve a clean commit or named
+artifact. Mark exploratory checkpoints as prototypes, not completed production deliverables.
+Return stage, outputs, checks, consequential choices, deviations, and unresolved work. Retained
+prototype code must pass hardening before being reported as production-ready.

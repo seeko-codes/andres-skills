@@ -40,6 +40,21 @@ The human owns highest-level direction and consequential unresolved tradeoffs.
 Investigate resolvable uncertainty; bring genuine decision gaps with options, evidence,
 and a recommendation. Existing authorization persists; do not ask the human to manage routine handoffs.
 
+## Establish coherence before hardening
+
+Use exploration while the feature arrangement, interfaces, or user flow remain uncertain.
+Map alternatives broadly, then commission bounded prototypes or spikes to answer specific
+questions. Read [stages.md](doctrine/stages.md) when implementation direction is unsettled.
+Do not load `lean-quality` or run its full checklist during exploration unless explicitly
+requested. Keep baseline checks that make the experiment trustworthy and preserve existing
+project protections. A working prototype is evidence about the design, not production completion.
+
+Once the current scope has coherent responsibilities, exercised seams, settled acceptance,
+and no unresolved structural decision that would invalidate its construction, record that
+basis and enter hardening. Apply `lean-quality` to retained code, with TDD for new behavior
+and fixes plus integration and visual checks where relevant. Distant batches may remain
+exploratory; hardening applies to a coherent bounded scope, not only to an entire finished project.
+
 ## 2. Decompose into vertical slices and batches
 
 A vertical slice is a cohesive, independently checkable contribution. The basis-vector

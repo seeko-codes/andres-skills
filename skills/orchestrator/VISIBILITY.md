@@ -11,7 +11,8 @@ At launch and significant changes, show:
 |---|---|---|---|---|---|
 
 Use real run identifiers once launched; planned agents are labeled planned. Context values
-include measured/estimated/unknown and freshness. Show the active batch and queued work.
+include measured/estimated/unknown and freshness. Show the active batch, queued work, and exploration/hardening stage. Explain which
+uncertainty an experiment resolves, the evidence for coherence, and why hardening starts.
 Status vocabulary: planned, running, blocked, verifying, integrating, complete, handed off.
 
 Explain planning, dispatch, blockers, changed decisions, verification, integration, and handoff.

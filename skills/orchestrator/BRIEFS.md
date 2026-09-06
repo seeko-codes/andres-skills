@@ -7,7 +7,8 @@ and only the matching task guidance when preparing the brief.
 | Field | Contents |
 |---|---|
 | DELIVERABLE | Exact output and its necessary contribution to the horizontal goal |
-| CONTRACT | Requirements, shared interfaces, constraints, and relevant settled decisions |
+| STAGE | Exploration or hardening, why, and evidence needed to exit the stage |
+| CONTRACT | Experiment/question in exploration; settled requirements/interfaces in hardening; constraints in both |
 | INPUTS | Curated sources with read scope and purpose; relevant dependency outputs |
 | AUTHORITY | Local choices the agent owns; cross-slice decisions it must escalate |
 | BOUNDS | Exact write-set, isolation path, applicable local instructions; no delegation |
@@ -21,9 +22,10 @@ within its boundaries. The manager checks context sizing using measured occupanc
 fallback in CONTEXT.md; it does not depend on this request.
 
 Research assignments name the question, how its answer affects the plan, and evidence
-needed; hypotheses are optional and must not bias findings. Execution assignments freeze
+needed; hypotheses are optional and must not bias findings. Exploration assignments commission bounded experiments; hardening assignments establish
 shared requirements while preserving local implementation autonomy. Review assignments
 name the target, relevant requirements, risk, and requested independent verdict.
 
-Acceptance instruments must suit the task. Use the project's implementation-quality
-instructions; do not impose a fake failing check on a read-only investigation or document edit.
+Acceptance instruments must suit the task and stage. Read [stages.md](doctrine/stages.md)
+for the coherence gate and prototype-to-hardening transition. Do not impose fake failing
+checks on investigations, document edits, or already-working prototype characterization.
