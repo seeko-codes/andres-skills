@@ -27,3 +27,11 @@ Escalations to the human state the decision, why evidence cannot settle it, alte
 consequences, and recommendation. Highest-level direction and consequential uncertain
 tradeoffs and uncovered subagent effort choices belong to the human. Routine execution, telemetry checks, and authorized handoffs do not.
 Summaries give decision rationale and evidence, never hidden chain-of-thought transcripts.
+
+## Match the explanation to the human
+
+Keep standard terminology in technical contracts and records. Explain progress through
+concrete actions and their purpose, without assuming the human knows the method's name.
+For example: “I’m adding a check that reproduces the bug, so we can see whether the fix
+works and catch a recurrence.” Introduce “regression test” only if the term helps the reader.
+Keep explanations brief; do not turn each update into a glossary or expose private reasoning.

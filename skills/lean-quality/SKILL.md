@@ -187,3 +187,12 @@ checks — at a different altitude:
       substitute for behavior or other applicable acceptance criteria
 - [ ] Complete diff read line by line; one intent per commit; nothing unexplained
 - [ ] Committed only on green; failures and skipped steps reported verbatim
+
+## Terminology, explanation, and ambiguity
+
+Use canonical technical terminology in agent instructions, contracts, and technical
+records. In human-facing updates, explain the action, purpose, evidence, and decision in
+familiar language; introduce a technical term only when useful and explain it briefly.
+For an unresolved method or tool question, consult [REFERENCES.md](REFERENCES.md) on demand.
+Do not load the shelf or its sources automatically, and do not use external research to
+guess the human's intent.

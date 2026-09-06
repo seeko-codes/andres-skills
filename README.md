@@ -4,10 +4,12 @@ A curated set of agent skills from my daily setup. Each skill is a Markdown inst
 file, sometimes with supporting references or a helper script. This repo is a portable
 selection, not a backup of my local agent configuration.
 
-The orchestrator now centers context management: breadth-first planning, horizontal goals,
-vertical slices, dependency-ordered batches, and focused contexts for a small capable team.
-Managers request the smartest available model and maximum effort. Workers are autonomous
-within their contracts. Optional Wayfinder mode maintains the larger sequence and handoffs.
+The central idea is to give each agent a clear job and just the information it needs.
+A capable manager keeps track of the whole goal. A small team handles focused pieces,
+working at the same time when those pieces do not depend on each other.
+
+The instructions use established technical terms so agents can apply methods precisely.
+This README explains the logic without requiring you to know those terms first.
 
 ## Install
 
@@ -34,69 +36,87 @@ skills; the bundled instructions include the fallback procedure.
 
 ## The skills
 
-| Skill | What it does | When to use it |
-|---|---|---|
-| [orchestrator](skills/orchestrator/SKILL.md) | Manages horizontal goals through focused autonomous agents and dependency-ordered batches | Context-heavy work or independent slices where delegation pays |
-| [model-strategy](skills/model-strategy/SKILL.md) | Maps task risk and verifiability to available models and effort settings | After deciding to delegate, before launching a child |
-| [lean-quality](skills/lean-quality/SKILL.md) | Hardens coherent implementations through TDD, static and behavior checks, integration, and visual verification | Settled implementation or prototype promotion; defer during arrangement exploration |
-| [tdd](skills/tdd/SKILL.md) | Behavior-first vertical slices with references on tests, interfaces, mocking, and refactoring | Explicit `/tdd` requests; automatic hardening uses `lean-quality` after coherence |
-| [grill-with-docs](skills/grill-with-docs/SKILL.md) | Challenges a plan one question at a time and records surviving terminology and decisions | Stress-testing a plan against project docs |
-| [diagnose](skills/diagnose/SKILL.md) | Reproduce, minimise, hypothesise, instrument, fix, and regression-test | Bugs where guessing has not worked |
-| [wait-what](skills/wait-what/SKILL.md) | Re-explains an answer with context and the project's vocabulary | Explicit `/wait-what` requests only |
+| Skill | What it helps you do |
+|---|---|
+| [orchestrator](skills/orchestrator/SKILL.md) | Split a large goal into focused jobs, keep track of progress, and check the pieces work together. |
+| [model-strategy](skills/model-strategy/SKILL.md) | Choose a suitable model and propose how much reasoning effort each helper needs. You approve the effort. |
+| [lean-quality](skills/lean-quality/SKILL.md) | Once the arrangement makes sense, strengthen the implementation with checks for behavior, mistakes, and integration. |
+| [tdd](skills/tdd/SKILL.md) | When you explicitly request `/tdd`, build one behavior at a time: first a failing check, then working code, then cleanup. |
+| [grill-with-docs](skills/grill-with-docs/SKILL.md) | Examine a plan one question at a time and record important decisions and shared meanings. |
+| [diagnose](skills/diagnose/SKILL.md) | Reproduce a bug, narrow down its cause, fix it, and add a check to catch it if it returns. |
+| [wait-what](skills/wait-what/SKILL.md) | When you request `/wait-what`, explain the previous answer again with enough background to follow it. |
 
 `wait-what` is by [Matt Pocock](skills/wait-what/NOTICE.md), preserved verbatim with its
-[MIT license](skills/wait-what/LICENSE). Its attribution files are part of the skill.
+[MIT license](skills/wait-what/LICENSE). Its new reference shelf is a collection-maintained supplement.
 
-## How they fit together
+## How work moves forward
 
-```text
-grill-with-docs       Challenge the plan and record decisions.
-orchestrator          Decide what stays local and what can delegate.
-  model-strategy      Select available capability and effort for each child.
-  lean-quality        Harden a coherent scope; test-first for new behavior and fixes.
-diagnose              Establish a reproduction before fixing a bug.
-tdd                   Optional, explicitly requested TDD reference.
-wait-what             Ask for a clearer explanation.
-```
+1. **Understand the whole goal.** Agree on the result and what would count as success.
+2. **Check the arrangement.** Explore alternatives with small experiments. Investigate the
+   assumption most likely to make later work unnecessary or wrong. Preserve existing protections.
+3. **Give each helper a complete, focused job.** Include the relevant requirements, files,
+   constraints, and checks. Keep decisions that change together with one owner. The pieces
+   should be easy to replace.
+4. **Do ready work together.** If one job needs another's result, queue it for a later batch.
+   Repeated back-and-forth between helpers is a reason to reconsider the split.
+5. **Strengthen the chosen implementation.** Once responsibilities and connections make sense,
+   apply lean-quality to the code being kept. Check existing behavior; use test-driven
+   development for new behavior and fixes. For a screen, try its interactions and inspect screenshots.
+6. **Check the whole result.** A helper finishing does not mean the feature works. The manager
+   combines the pieces, checks the agreed outcome, and updates the next batch.
 
-Small tasks stay local. For larger work, map the whole goal before preparing narrow contracts.
-The complete sequence of vertical slices covers the horizontal goal; concurrent work has
-disjoint write ownership and resolved prerequisites. Each agent receives sufficient relevant
-context, an appropriate model/effort allocation, and checkable acceptance criteria.
+In the technical instructions, the whole goal is the **horizontal slice** and each focused
+contribution is a **vertical slice**. Together, all batches must cover the goal, including
+the work of combining and checking their outputs. The basis-vector analogy is a planning
+aid, not a mathematical guarantee of correctness.
 
-Keep decisions that change together in one slice; investigate repeated cross-slice coordination
-as evidence to reconsider the split. Explore the assumption most likely to invalidate downstream
-work before investing in it, including early feasibility checks where needed.
+Small tasks stay with one agent. For larger tasks, delegation can provide specialization,
+keep the manager's working context manageable, and allow useful parallel work.
 
-The human chooses or approves subagent reasoning effort before dispatch. Managers recommend
-settings in batches with the reason and tradeoff. Existing scoped effort approvals persist;
-new assignments or changes outside that scope return to the human. Maximum-effort managers
-remain the standing policy. Runtime limitations are disclosed before the decision.
+## What you control and see
 
-User configuration (set in the request or project instructions):
+Managers use the strongest available model at maximum supported reasoning effort. Helpers
+can use the same capability or less when appropriate. Before launching them, the manager
+proposes effort settings with reasons and tradeoffs for your approval. An approval can cover
+a whole batch or a stated policy; it carries forward within that scope. Changes outside it
+come back to you. The agent reports settings it cannot control honestly.
 
-| Parameter | Default |
-|---|---|
-| `max_context_per_agent` | `100000` tokens |
-| `context_warning_fraction` | `0.8` |
-| `wayfinder` | `false` |
+Set these options in your request or project instructions:
 
-The manager monitors context occupancy; crossing the limit is a sizing failure. Unknown
-telemetry is reported honestly. With Wayfinder enabled, the permitted structure is
-Wayfinder → orchestrators → leaf workers. Otherwise an orchestrator has only leaf workers.
-Renewal, telemetry and nested dispatch require runtime support; the skill does not install
-those capabilities. Human-readable status explains actions, purpose, dependencies and handoffs.
+| Option | Default | Meaning |
+|---|---|---|
+| `max_context_per_agent` | `100000` tokens | Maximum working context for each agent, including managers. Tokens are units of text processed by the model. |
+| `context_warning_fraction` | `0.8` | Start saving progress and replanning at 80% of that limit. |
+| `wayfinder` | `false` | Enable a coordinator for a longer sequence of manager sessions. |
 
-See [Wayfinder](skills/orchestrator/WAYFINDER.md),
-[context accounting](skills/orchestrator/CONTEXT.md), and
-[model validation](skills/model-strategy/EVIDENCE.md) for the conditional details.
+Context includes instructions, inputs, working history, and room for the answer; it is not
+the cumulative usage bill. Passing the limit means the assignment was too large for its
+budget. The manager preserves progress and narrows the remaining job. It labels usage as
+measured, estimated, or unknown instead of pretending it can see unavailable measurements.
 
-Explore uncertain arrangements with bounded prototypes first. Record evidence of coherent
-responsibilities, exercised seams, and agreed acceptance before applying lean-quality to retained
-code. Existing prototype characterization is post-hoc evidence; TDD applies to new behavior and
-fixes. UI verification combines interactions and inspected screenshots. See the
-[stage transition](skills/orchestrator/doctrine/stages.md). Quality hardening precedes production
-completion, while distant batches can remain exploratory.
+With **Wayfinder** enabled, one coordinator can manage orchestrators that each manage helpers.
+Otherwise there is only one manager with helpers that cannot delegate. Automatic handoffs
+depend on what the running application supports; installing a skill does not add those controls.
+You keep ownership of the highest-level direction and consequential uncertain decisions.
+
+You should see what is happening, why, who owns each job, what is waiting, and what happens
+next. The manager brings worker updates into one readable view. See the technical details for
+[context](skills/orchestrator/CONTEXT.md), [Wayfinder](skills/orchestrator/WAYFINDER.md),
+[effort evidence](skills/model-strategy/EVIDENCE.md), and
+[exploration and hardening](skills/orchestrator/doctrine/stages.md).
+
+## References when a question comes up
+
+Each process has a small reference shelf with authoritative definitions, original method
+descriptions, or official tool instructions. Agents look up a relevant section when a specific
+question blocks progress; they do not preload every source. More reading is useful only when
+it resolves the uncertainty. References help ground decisions but cannot guarantee them.
+
+Browse the shelves for [orchestration](skills/orchestrator/REFERENCES.md),
+[model selection](skills/model-strategy/REFERENCES.md), [quality checks](skills/lean-quality/REFERENCES.md),
+[test-driven development](skills/tdd/REFERENCES.md), [planning and decisions](skills/grill-with-docs/REFERENCES.md),
+[debugging](skills/diagnose/REFERENCES.md), and [clear explanations](skills/wait-what/REFERENCES.md).
+Each entry says which question it answers and where its advice stops applying.
 
 ## What is different from my local setup
 

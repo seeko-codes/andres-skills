@@ -92,3 +92,12 @@ Only if `lavish-axi` is installed. When the interview is over, the plan that sur
 The one-question-at-a-time rule still binds. Do not batch questions into an artifact. The single exception is one question with many discrete options — a term to canonicalise, a scope to pick — where `lavish-axi playbook input` renders that one question as choices; ask it, wait for the answer, then continue.
 
 </supporting-info>
+
+## Terminology, explanation, and ambiguity
+
+Use canonical technical terminology in agent instructions, contracts, and technical
+records. In human-facing updates, explain the action, purpose, evidence, and decision in
+familiar language; introduce a technical term only when useful and explain it briefly.
+For an unresolved method or tool question, consult [REFERENCES.md](REFERENCES.md) on demand.
+Do not load the shelf or its sources automatically, and do not use external research to
+guess the human's intent.

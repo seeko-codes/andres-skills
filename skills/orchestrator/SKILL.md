@@ -136,3 +136,12 @@ context usage, dependencies, and status. Explain what is happening and why at pl
 dispatch, blockers, changed decisions, verification, integration, and handoff; provide
 periodic updates during long work. Expose concise rationale and evidence, never private
 chain of thought. Do not drown the manager or human in every child tool call.
+
+## Terminology, explanation, and ambiguity
+
+Use canonical technical terminology in agent instructions, contracts, and technical
+records. In human-facing updates, explain the action, purpose, evidence, and decision in
+familiar language; introduce a technical term only when useful and explain it briefly.
+For an unresolved method or tool question, consult [REFERENCES.md](REFERENCES.md) on demand.
+Do not load the shelf or its sources automatically, and do not use external research to
+guess the human's intent.

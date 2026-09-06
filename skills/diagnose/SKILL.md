@@ -115,3 +115,12 @@ Required before declaring done:
 - [ ] The hypothesis that turned out correct is stated in the commit / PR message — so the next debugger learns
 
 **Then ask: what would have prevented this bug?** If the answer involves architectural change (no good test seam, tangled callers, hidden coupling), write that recommendation down with the specifics. Make the recommendation **after** the fix is in, not before — you have more information now than when you started.
+
+## Terminology, explanation, and ambiguity
+
+Use canonical technical terminology in agent instructions, contracts, and technical
+records. In human-facing updates, explain the action, purpose, evidence, and decision in
+familiar language; introduce a technical term only when useful and explain it briefly.
+For an unresolved method or tool question, consult [REFERENCES.md](REFERENCES.md) on demand.
+Do not load the shelf or its sources automatically, and do not use external research to
+guess the human's intent.

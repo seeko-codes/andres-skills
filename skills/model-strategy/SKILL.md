@@ -57,3 +57,12 @@ In the centralized assignment board state actual model, effort, reason for selec
 unknown/inherited fields. Report model choices as policy decisions, not benchmark facts.
 Read [EVIDENCE.md](EVIDENCE.md) when evaluating or changing capability mappings. Validate
 quality through task success, escaped defects, and rework before optimizing latency or usage.
+
+## Terminology, explanation, and ambiguity
+
+Use canonical technical terminology in agent instructions, contracts, and technical
+records. In human-facing updates, explain the action, purpose, evidence, and decision in
+familiar language; introduce a technical term only when useful and explain it briefly.
+For an unresolved method or tool question, consult [REFERENCES.md](REFERENCES.md) on demand.
+Do not load the shelf or its sources automatically, and do not use external research to
+guess the human's intent.
