@@ -1,4 +1,4 @@
-<p align="center"><img src="brand/hero.webp" alt="Turn to Life — a purposeful path grows from a seed into a leaf." width="100%"></p>
+<p align="center"><img src=".github/assets/hero.webp" alt="Turn to Life — a purposeful path grows from a seed into a leaf." width="100%"></p>
 
 # Turn to Life
 
